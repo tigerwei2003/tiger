@@ -1,0 +1,107 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+	
+		<div id="content">
+			<div id="content-header">
+				<h1>多选卡类别管理</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('Checkcard/Index')}" class="current">多选卡管理</a>
+                <a href="{:U('Checkcardtype/Edit')}" class="current">多选卡类别管理</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+            
+			<div class="container-fluid">
+   				<div class="row-fluid">
+					<div class="span12">
+                        <div class="widget-box">
+							<div class="widget-title">
+								<span class="icon"><i class="icon-leaf"></i></span>
+								<h5>多选卡类别管理</h5>
+                              
+                                <a href="{:U('Checkcardtype/Edit')}"><span class="label btn-success"><i class="icon-plus icon-white"></i> 添加类别</span></a>
+                                
+                              
+                                <a href="{:U('Checkcard/Edit')}"><span class="label btn-success"><i class="icon-plus icon-white"></i> 生成兑换券</span></a>
+                               
+							</div>
+							<div class="widget-content">
+                            	<div class="cont_max">
+								<table class="table table-bordered table-striped with-check" id="maxtable">
+									<thead>
+										<tr>
+                                        	<th width="60">ID</th>
+											<th width="260">类别名称</th>
+                                            <th width="400">计费点</th>
+											<th width="400">备注</th>
+                                            <th >创建时间</th>
+                                            <th width="100" class="taskOptions">创建者</th>
+                                     
+                                            <th width="40" class="taskOptions">编辑</th>
+                                            
+                                           
+                                            <!--<th width="40" class="taskOptions">删除</th>-->
+                                            
+										</tr>
+									</thead>
+									<tbody>
+                                    <foreach name="typelist" item="row">
+										<tr>
+                                        	<td>{$row.id}</td>
+											<td>{$row.type_name}</td>
+                                            <td>{$row.point_name}</td>
+											<td>{$row.spare}</td>
+                                            <td><if condition="$row['create_time']">{$row.create_time|date='Y-m-d',###}</if></td>
+                                         
+                                            <td class="taskOptions">
+                                                {$row.admin}</a>
+                                            </td>
+                                           
+                                          
+                                            <td class="taskOptions">
+                                            	<a href="javascript:;" onClick="javascript:window.location.href='{:U('Checkcardtype/Edit',array('id'=>$row['id']))}';" class="tip-top" data-original-title="Update" title="Update"><i class="icon-pencil"></i></a>
+                                            </td>
+                                            
+                                           <!-- 
+                                            <td class="taskOptions">
+                                                <a href="javascript:;" onClick="javascript:ConfirmDel('{:U('Checkcardtype/Del',array('id'=>$row['id']))}');" class="tip-top" data-original-title="Delete" title="Delete"><i class="icon-remove"></i></a>
+                                            </td>-->
+                                            
+										</tr>
+                                    </foreach>										
+									</tbody>
+								</table>
+                                </div>	
+                                <div class="pagination" style="text-align:center">{$pages}</div>	  					
+							</div> 
+						</div>
+                        
+					</div>
+				</div>
+				
+
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div> 
+			</div>
+		</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		$('.datepicker').datepicker();
+	});
+	$(document).ready(function(e) {
+		tableresize(1600);
+	});
+	$(window).resize(function(e){
+		tableresize(1600);
+	});
+</script>
+<include file="Public/footer" />

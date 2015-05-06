@@ -1,0 +1,322 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+<div id="content">
+	<div id="content-header">
+		<h1>{:C('SEO_TITLE')}</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<ul class="quick-actions">
+					<li><a href="{:U('Rechargecard/activation')}"> <i
+							class="icon-book"></i> <span>激活充值卡</span>
+					</a></li>
+
+
+					<li><a href="{:U('Record/bespeak')}"> <i
+							class="icon-search"></i> 预约记录
+					</a></li>
+
+
+					<li><a href="{:U('System/account')}"> <i
+							class="icon-people"></i> 帐号管理
+					</a></li>
+
+
+
+
+					<li><a href="{:U('Rechargecard/countchart')}"> <i
+							class="icon-piechart"></i> 售卡汇总
+					</a></li>
+
+
+
+					<li><a href="{:U('Chart/statistics')}"> <i
+							class="icon-chart"></i> 统计汇总
+					</a></li>
+
+
+
+					<li><a href="{:U('Chart/index')}"> <i class="icon-graph"></i>
+							每日报表
+					</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+		<!-- <div class="row-fluid">
+			<div class="span12">
+
+				一个通栏BOX
+				<div class="row-fluid phonenone" style="margin-top: -5px;">
+					<div class="span12">
+						<div class="widget-box widget-calendar">
+							<div class="widget-title">
+								<span class="icon"><i class="icon-random"></i></span>
+								<h5 id="charttitle">近半月数据</h5>
+							</div>
+							<div class="widget-content nopadding" style="overflow: hidden;">
+								<div class="chartcontent" id="container_1"></div>
+								<div class="chartcontent" id="container_2"
+									style="display: none;"></div>
+								<div class="chartcontent" id="container_3"
+									style="display: none;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				一个通栏BOX
+
+
+
+				一个通栏BOX
+				<div class="row-fluid" style="margin-top: -16px;">
+					<div class="span12">
+						<div class="widget-box widget-calendar">
+							<div class="widget-title">
+								<span class="icon"><i class="icon-random"></i></span>
+								<h5>近半月售卡与用户开卡曲线图</h5>
+							</div>
+							<div class="widget-content nopadding">
+								<div class="content" id="chart_3" style="height: 320px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				一个通栏BOX
+
+
+				
+                        <if condition="rolemenu('Chart/index')">
+                        <div class="widget-box" style="margin-top:10px;">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="icon-th"></i>
+								</span>
+								<h5>最新预约信息</h5>
+							</div>
+							<div class="widget-content">
+								<div class="cont_max">
+								<table class="table table-bordered table-striped with-check" id="maxtable">
+									<thead>
+										<tr>
+											<th>用户</th>
+                                            <th>姓名</th>
+                                            <th>电话</th>
+											<th>城市</th>
+                                            <th>小区</th>
+                                            <th>宽带</th>
+                                            <th>填表时间</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    <foreach name="bespeak" item="row">
+										<tr>
+											<td>{$row.username}</td>
+                                            <td>{$row.realname}</td>
+                                            <td>{$row.phone}</td>
+											<td>{$row.city}</td>
+                                            <td>{$row.village}</td>
+                                            <td><?php if($row['adsl']){ echo $row['adsl'].'M';}else{ echo '未装';} ?></td>
+                                            <td>{$row.inputtime|date='Y-m-d',###}</td>
+										</tr>
+                                    </foreach>										
+									</tbody>
+								</table>
+                                </div>	   				
+							</div>
+						</div>
+                        </if>
+                       
+
+
+
+
+
+			</div>
+		</div> -->
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script src="__HTML__/charts/highcharts.js" type="text/javascript"></script>
+<script src="__HTML__/charts/modules/exporting.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart_user('container_1');
+		 chart_3('chart_3'); 
+		//chart_4('chart_4');
+    });
+    
+});
+
+
+//用户统计
+function chart_user(id){ 
+	//声明报表对象  
+	var chart = new Highcharts.Chart({  
+		chart: {  
+			//将报表对象渲染到层上  
+			renderTo: id
+		},title: {
+			text: '云游戏近半月数据曲线图'
+		},credits: {
+			 text: '云游戏',
+			 href: 'http://www.pyou.com/'
+		},xAxis: {
+			categories: [<?php echo $yy; ?>],labels:{
+				style:{
+					font:'normal 12px 宋体',	
+				}	
+			}
+		},yAxis: {
+			title: {
+				text: ''
+			},
+			min: 0
+		},tooltip: {
+			formatter: function() {
+				return ''+
+					this.x + this.series.name +': '+ this.y +' ';
+			}
+		}, 
+		
+		//设定报表对象的初始数据  
+		series: [{ 
+			name: '当日新增用户', 
+			data: [<?php echo $d1; ?>]          
+		},{ 
+			name: '当日新增设备', 
+			data: [<?php echo $d2; ?>]         
+		},{ 
+			name: '当日新增有效用户', 
+			data: [<?php echo $d3; ?>] 
+		},{ 
+			name: '最高并发', 
+			data: [<?php echo $d4; ?>],
+			visible:false  
+		},{ 
+			name: '游戏时间', 
+			data: [<?php echo $d5; ?>],
+			visible:false                    
+		},{ 
+			name: '主机游戏', 
+			data: [<?php echo $d6; ?>],
+			visible:false                    
+		},{ 
+			name: '投币次数', 
+			data: [<?php echo $d7; ?>],
+			visible:false                    
+		},{ 
+			name: '当日活跃', 
+			data: [<?php echo $d8; ?>],  
+			visible:false  
+		},{ 
+			name: '7天活跃', 
+			data: [<?php echo $d9; ?>],
+			visible:false                    
+		},{ 
+			name: '30天活跃', 
+			data: [<?php echo $d10; ?>],
+			visible:false                    
+		}
+		]  
+	});  
+  
+} 
+
+
+//图表三
+function chart_3(id){
+	chart = new Highcharts.Chart({
+		chart: {
+			renderTo: id,
+			type: 'spline'
+		},title: {
+			text: '近半月售卡与用户开卡曲线图'
+		},credits: {
+			 text: '云游戏',
+			 href: 'http://www.pyou.com/'
+		},xAxis: {
+			categories: [<?php echo $days; ?>],labels:{
+				style:{
+					font:'normal 13px 宋体',	
+				}	
+			}
+		},
+		yAxis: {
+			title: {
+				text: '值'
+			},
+			min: 0
+		},
+		tooltip: {
+			formatter: function() {
+				return ''+
+					this.x + this.series.name +': '+ this.y +' 单位';
+			}
+		},
+		
+		series: [{
+			name: '售卡数量',
+			data: [<?php echo $jihuoshu; ?>]
+
+		}, {
+			name: '用户开卡数量',
+			data: [<?php echo $shiyongshu; ?>]
+
+		}]
+	});	
+}
+
+
+$(document).ready(function(e) {
+	tableresize(900);
+	$('.cont_max').css('width','100%');
+});
+$(window).resize(function(e){
+	tableresize(900);
+	$('.cont_max').css('width','100%');
+});
+
+</script>
+
+<div id="sendweixin" style="width: 400px; height: 200px; display: none;">
+	<input type="hidden" id="fakeid" value="" /> <input type="hidden"
+		id="nickname" value="" /> <input type="hidden" id="openid" value="" />
+	<table width="100%" rules="none" border="0" cellpadding="0"
+		cellspacing="0">
+		<tr>
+			<td style="padding-bottom: 10px; font-weight: bold;">发送内容</td>
+		</tr>
+		<tr>
+			<td><textarea style="width: 340px; height: 100px;"
+					id="weixinmsg"></textarea></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="发送"
+				class="btn btn-warning btn-mini" onclick="javascript:sendweixin();" /></td>
+		</tr>
+	</table>
+</div>
+
+
+<include file="Public/footer" />

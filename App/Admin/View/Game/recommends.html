@@ -1,0 +1,101 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+<div id="content">
+	<div id="content-header">
+		<h1>推荐列表</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Game/recommends')}"
+			class="current">推荐列表</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i>
+						</span>
+						<h5>推荐列表</h5>
+						<a href="{:U('Game/recommends_edit')}"><span
+							class="label btn-success"><i class="icon-plus icon-white"></i>
+								新增推荐</span></a>
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th width="50">ID</th>
+										<th width="80">标题</th>
+										<th width="50">是否启用</th>
+										<th width="50">创建时间</th>
+										<th width="50">起始时间</th>
+										<th width="100">截止时间</th>
+										<th width="100">图片URL</th>
+										<th width="100">排序</th>
+										<th width="100">类型</th>
+										<th width="50">内容</th>
+										<th width="50">标志</th>
+										<th width="50">折扣</th>
+										<th width="50">设置渠道</th>
+										<th width="40" class="taskOptions">编辑</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="Recommends" item="row">
+									<tr>
+										<td>{$row.id}</td>
+										<td>{$row.title}</td>
+										<td>
+											<?php if($row['status'] == '1'){ echo '<span class="green">启用</span>';}elseif($row['status'] == '2'){echo '<span class="green">内网测试</span>';}else{echo '<span class="red">禁用</span>';}?>
+										</td>
+										<td>{$row.create_time}</td>
+										<td>{$row.start_time}</td>
+										<td><if condition="$row['end_time']">{$row.end_time|date='Y-m-d',###}</if></td>
+										<td>{$row.pic_file}</td>
+										<td>{$row.weight}</td>
+										<td>{$row.type}</td>
+										<td>{$row.content}</td>
+										<td>{$row.flag}</td>
+										<td>{$row.discount}</td>
+										<td class="taskOptions"><a href="javascript:;"
+											onClick="javascript:window.location.href='{:U('Recommend/set_pid',array('id'=>$row['id']))}';"
+											class="tip-top" data-original-title="Update" title="Update"><i
+												class="icon-pencil"></i></a></td>
+										<td class="taskOptions"><a href="javascript:;"
+											onClick="javascript:window.location.href='{:U('recommends_edit',array('id'=>$row['id']))}';"
+											class="tip-top" data-original-title="Update" title="Update"><i
+												class="icon-pencil"></i></a></td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		$('.datepicker').datepicker();
+	});
+	$(document).ready(function(e) {
+		tableresize(1600);
+	});
+	$(window).resize(function(e){
+		tableresize(1600);
+	});
+</script>
+<include file="Public/footer" />

@@ -1,0 +1,170 @@
+<include file="Public/header" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.formValidator.initConfig({
+			autotip : true,
+			formid : "basic_validate",
+			onerror : function(msg) {
+			}
+		});
+		$("#pid").formValidator({
+			onshow : "PID",
+			onfocus : "请输入渠道名称"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入渠道名称！"
+		});
+		$("#ver").formValidator({
+			onshow : "版本号",
+			onfocus : "请输入版本号"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入版本号！"
+		});
+		$("#desc").formValidator({
+			onshow : "版本描述",
+			onfocus : "请输入描述"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入描述！"
+		});
+		$("#url").formValidator({
+			onshow : "下载URL",
+			onfocus : "请输入下载URL"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入下载URL！"
+		});
+	});
+</script>
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>编辑客户端版本</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Game/clientver')}"
+			class="current">编辑客户端版本</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>编辑客户端版本</h5>
+						 <a
+							href="{:U('Game/clientver')}"><span
+							class="label btn-primary"><i
+								class=" icon-list-alt icon-white"></i> 客户端版本管理</span></a> 
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post"
+							action="{:U('clientver_edit')}" name="basic_validate"
+							id="basic_validate" enctype="multipart/form-data" novalidate >
+						<input type="hidden" name="dosubmit" value="1" /> <input
+							type="hidden" name="editdate" value="{$row.id}" />
+						<div class="control-group">
+							<label class="control-label">PRODUCT(产品类型)</label>
+							<div class="controls">
+								<select name="info[product]" id="product">
+									<option value="0"
+										<php>if($row['product'] == 0){echo "selected";}</php>
+										>大厅
+									</option>
+									<option value="1"
+										<php>if($row['product'] == 1){echo "selected";}</php>
+										>擂台
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">ClientType(客户端类型)</label>
+							<div class="controls">
+								<select name="info[client_type]" id="product">
+									<option value="0"
+										<php>if($row['client_type'] == 0){echo "selected";}</php>
+										>Android
+									</option>
+									<option value="1"
+										<php>if($row['client_type'] == 1){echo "selected";}</php>
+										>Win32
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">PID(渠道)</label>
+							<div class="controls">
+								<input type="text" name="info[pid]" value="{$row.pid}" id="pid" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">版本号(数字)</label>
+							<div class="controls">
+								<input type="text" name="info[ver]" value="{$row.ver}" id="ver" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">版本名(x.x.x)</label>
+							<div class="controls">
+								<input type="text" name="info[name]" value="{$row.name}"
+									id="name" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">版本介绍</label>
+							<div class="controls">
+								<div style="width: 95%">
+									<?php 
+											echo editor('desc',$row['desc']); 
+											?>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">下载URL</label>
+							<div class="controls">
+								<input type="text" name="info[url]" value="{$row.url}" id="url" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">是否强制升级</label>
+							<div class="controls">
+								<input type="text" name="info[force_update]"
+									value="{$row.force_update}" id="force_update" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">备注</label>
+							<div class="controls">
+								<input type="text" name="info[note]" value="{$row.note}"
+									id="note" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<input type="submit" value="保存" class="btn btn-primary" />
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+
+
+<include file="Public/footer" />

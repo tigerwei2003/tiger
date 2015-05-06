@@ -1,0 +1,159 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+		<div id="content">
+			<div id="content-header">
+				<h1>编辑特殊卡类别</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('Code/exchange')}" class="current">特殊卡管理</a>
+                <a href="{:U('Code/exchange_type')}" class="current">特殊卡类别管理</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+              
+                        
+						<div class="widget-box">
+							<div class="widget-title">
+                            	<span class="icon"><i class="icon-pencil"></i></span>
+								<h5>编辑特殊卡类别</h5>
+                               
+                                <a href="{:U('Code/exchange')}"><span class="label btn-primary"><i class=" icon-list-alt icon-white"></i> 特殊卡管理</span></a>
+                               
+							</div>
+							<div class="widget-content nopadding">
+								<form class="form-horizontal" method="post" action="{:U('Code/exchange_type_edit')}" name="basic_validate" id="basic_validate" enctype="multipart/form-data" novalidate >
+                                <input type="hidden" name="dosubmit" value="1" />
+                                <input type="hidden" name="type_id" value="{$row.type_id}" />
+                                    <div class="control-group">
+                                        <label class="control-label">类别标识:</label>
+                                        <div class="controls">
+                                            <select name="info[type_mark]" id="type_mark" onchange="type_change();">
+                                                <option value="1" <?php if($row['type_mark']=="1"){ echo 'selected';}?> >一码多次</option>
+                                                <option value="2" <?php if($row['type_mark']=="2"){ echo 'selected';}?> >多码多次</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">类别名称:</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[type_name]" value="{$row.type_name}" id="type_name"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">关联计费点</label>
+                                        <div class="controls">
+                                        	<select name="info[chargepoint_id]" id="chargepoint_id">
+                                            	<option value="">选择计费点
+                                                <foreach name="chargepointlist" item="v">
+                                                <option value="{$v.id}" <?php if($row['chargepoint_id']==$v['id']){ echo 'selected';}?>>{$v.name}
+                                                </foreach>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="type_num">
+                                        <label class="control-label">兑换券能使用的总次数</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[num]" value="{$row.num}" id="num"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="type_make_num">
+                                        <label class="control-label">会员能使用的次数</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[account_make_num]" value="{$row.account_make_num}" id="account_make_num"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">来源</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[source]" value="{$row.source}" id="source"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">开启时间</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[valid_time]" value="<?php if($row['valid_time']){ echo date('Y-m-d',$row['valid_time']);} ?>" id="valid_time"  data-date-format="yyyy-mm-dd" class="datepicker"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">过期时间</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[expire_time]" value="<?php if($row['expire_time']){ echo date('Y-m-d',$row['expire_time']);} ?>" id="expire_time"  data-date-format="yyyy-mm-dd" class="datepicker"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <input type="submit" value="保存" class="btn btn-primary" />
+                                    </div>
+                                </form>
+							</div>
+						</div>			
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+            
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		$('.datepicker').datepicker();
+	});
+    
+	$(document).ready(function(){
+		$.formValidator.initConfig({autotip:true,formid:"basic_validate",onerror:function(msg){}});
+		$("#pid").formValidator({onshow:"请选择渠道",onfocus:"渠道不能为空"}).inputValidator({min:1,onerror:"请选择渠道！"});
+		$("#source").formValidator({onshow:"请输入来源作为记录",onfocus:"请输入来源作为记录"}).inputValidator({min:1,onerror:"请输入来源作为记录！"});
+        $("#type_name").formValidator({onshow:"请输入类别名称",onfocus:"请输入类别名称"}).inputValidator({min:1,onerror:"请输入类别名称"});
+        $("#num").formValidator({onshow:"该码能使用的次数",onfocus:"该码能使用的次数"}).inputValidator({min:1,onerror:"该码能使用的次数"});
+        $("#account_make_num").formValidator({onshow:"单个码会员能使用的次数(类别为多码时,默认为1)",onfocus:"单个码会员能使用的次数(类别为多码时,默认为1)"}).inputValidator({min:1,onerror:"单个码会员能使用的次数(类别为多码时,默认为1)"});
+        $("#valid_time").formValidator({onshow:"请输入开启时间，如2014-10-30",onfocus:"请输入开启时间，如2014-10-30"}).inputValidator({min:1,onerror:"请输入开启时间，如2014-10-30！"});
+		$("#expire_time").formValidator({onshow:"请输入过期时间，如2014-10-30",onfocus:"请输入过期时间，如2014-10-30"}).inputValidator({min:1,onerror:"请输入过期时间，如2014-10-30！"});
+		$("#chargepoint_id").formValidator({onshow:"请选择计费点",onfocus:"请选择计费点"}).inputValidator({min:1,onerror:"请选择计费点！"});
+	});
+ 
+    $(document).load(type_change());
+    
+    function type_change()
+    {
+        var id="<?php echo $row['type_id']?>";
+        var type_mark=$("#type_mark").val();
+        if(id)
+        {
+            $("#type_mark").attr("disabled",true);
+            $("#chargepoint_id").attr("disabled",true);
+        }
+        else
+        {
+            if(type_mark==1)
+            {
+                $("#account_make_num").val("1");
+            }
+            else
+            {
+                $("#num").val("0");
+            } 
+        }
+        if(type_mark==1)
+        {
+            $("#type_num").show();
+            $("#type_make_num").hide();
+        }
+        else
+        {
+            $("#type_num").hide();
+            $("#type_make_num").show();
+        } 
+    } 
+</script>
+<include file="Public/footer" />

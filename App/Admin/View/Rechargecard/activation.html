@@ -1,0 +1,91 @@
+<include file="Public/header" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.formValidator.initConfig({
+			autotip : true,
+			formid : "basic_validate",
+			onerror : function(msg) {
+			}
+		});
+		$("#card_id").formValidator({
+			onshow : "请输入充值卡卡号",
+			onfocus : "请输入充值卡卡号"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入充值卡卡号！"
+		});
+		$("#sales").formValidator({
+			onshow : "激活人为实际销售业务员",
+			onfocus : "激活人为实际销售业务员"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入激活人姓名！"
+		});
+
+	});
+</script>
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>激活充值卡</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Rechargecard/index')}"
+			class="current">已售充值卡</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>激活充值卡</h5>
+						<a href="{:U('Rechargecard/index')}"><span
+							class="label btn-primary"><i
+								class=" icon-list-alt icon-white"></i> 已售充值卡</span></a>
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post" action=""
+							name="basic_validate" id="basic_validate"
+							enctype="multipart/form-data" novalidate >
+						<input type="hidden" name="dosubmit" value="1" />
+						<div class="control-group">
+							<label class="control-label">充值卡卡号</label>
+							<div class="controls">
+								<input type="text" name="card_id" value=""
+									id="card_id" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">激活人姓名</label>
+							<div class="controls">
+								<input type="text" name="sales" value="" id="sales" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">备注</label>
+							<div class="controls">
+								<input type="text" name="remarks" value="" />
+							</div>
+						</div>
+
+						<div class="form-actions">
+							<input type="submit" value="激活" class="btn btn-primary" />
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<include file="Public/footer" />

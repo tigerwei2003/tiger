@@ -1,0 +1,65 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+<div id="content">
+	<div id="content-header">
+		<h1>{$recommend_info.title} - 设置推荐白名单渠道</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a> <a href="{:U('gamepack')}"
+			class="current">{$recommend_info.title} - 渠道列表</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>{$recommend_info.title} - 设置渠道</h5>
+
+						<a href="{:U('Game/recommends')}"><span
+							class="label btn-primary"><i
+								class=" icon-list-alt icon-white"></i> {{$recommend_info.title}}</span></a>
+
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post" action=""
+							name="basic_validate" id="basic_validate"
+							enctype="multipart/form-data" novalidate>
+							<input type="hidden" name="dosubmit" value="1" /> <input
+								type="hidden" name="id" value="{$recommend_info.id}" />
+							<div class="control-group">
+								<label class="control-label">推荐名称</label>
+								<div class="controls">
+									<input type="text" readonly value="{$recommend_info.title}" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">渠道操作</label>
+								<div class="controls">
+									<foreach name="pid_data" item="gm">
+									<div class="gameunit">
+										<input type="checkbox" name="info[]"<?php
+										if(in_array($gm['pid'],$limit_pid_data)){ echo 'checked';} ?>
+										value="{$gm.pid}"> {$gm.pid}
+									</div>
+									</foreach>
+								</div>
+							</div>
+							<div class="form-actions">
+								<input type="submit" value="保存" class="btn btn-primary" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<include file="Public/footer" />

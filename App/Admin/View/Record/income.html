@@ -1,0 +1,156 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>虚拟币收入记录</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Record/income')}"
+			class="current">虚拟币收入记录</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="sousuo">
+					<form class="form-horizontal" action="" method="post"
+						id="searchform">
+						<table rules="none" border="0">
+							<tbody>
+								<tr>
+									<td style="padding-right: 0"><input type="text"
+										name="user"
+										value="<php> if($user){ echo $user;}else{ echo '用户';} </php>"
+										onBlur="blur_input(this,'用户')"
+										onClick="click_input(this,'用户')"></td>
+									<td style="padding-right: 0"><select name="income_type">
+											<option value="收入类型"
+												<php>if($income_type=='收入类型'){echo 'selected';}</php>
+												>收入类型
+											</option>
+											<option value="1"
+												<php>if($income_type=='1'){echo 'selected';}</php>
+												>签到
+											</option>
+											<option value="2"
+												<php>if($income_type=='2'){echo 'selected';}</php>
+												>任务
+											</option>
+											<option value="3"
+												<php>if($income_type=='3'){echo 'selected';}</php>
+												>客服赠送
+											</option>
+											<option value="4"
+												<php>if($income_type=='4'){echo 'selected';}</php>
+												>购物赠送
+											</option>
+											<option value="5"
+												<php>if($income_type=='5'){echo 'selected';}</php>
+												>RMB购买
+											</option>
+											<option value="6"
+												<php>if($income_type=='6'){echo 'selected';}</php>
+												>兑换券
+											</option>
+											<option value="7"
+												<php>if($income_type=='7'){echo 'selected';}</php>
+												>单款游戏赠送
+											</option>
+									</select></td>
+									<td style="padding-right: 0"><input type="text"
+										name="startdate"
+										value="<php> if($startdate){ echo $startdate;}else{ echo '开始日期';} </php>"
+										onBlur="blur_input(this,'开始日期')"
+										onClick="click_input(this,'开始日期')"></td>
+									<td>-</td>
+									<td><input type="text" name="enddate"
+										value="<php> if($enddate){ echo $enddate;}else{ echo '结束日期';} </php>"
+										onBlur="blur_input(this,'结束日期')"
+										onClick="click_input(this,'结束日期')"></td>
+									<td>
+										<button class="btn btn-success"
+											onClick="javascript:$('#searchform').submit();">
+											<i class="icon-search icon-white"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-leaf"></i></span>
+						<h5>虚拟币收入记录</h5>
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th>编号</th>
+										<th>用户ID</th>
+										<th>收入的云豆</th>
+										<th>收入的云贝</th>
+										<th>收入的G币</th>
+										<th>收入类型</th>
+										<th>收入时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="incomelist" item="row">
+									<tr>
+										<td>{$row.id}</td>
+										<td>{$row.account_id}</td>
+										<td>{$row.bean}</td>
+										<td>{$row.coin}</td>
+										<td>{$row.gold}</td>
+										<td><php>if($row['income_type']==1){echo
+											'签到';}elseif($row['income_type']==2){echo
+											'任务';}elseif($row['income_type']==3){echo
+											'客服赠送';}elseif($row['income_type']==4){echo
+											'购物赠送';}elseif($row['income_type']==5){echo
+											'RMB购买';}elseif($row['income_type']==6){echo
+											'兑换券';}elseif($row['income_type']==7){echo '单款游戏赠送';}</php></td>
+										<td><if condition="$row['create_time']">{$row.create_time|date='Y-m-d
+											H:i:s',###}</if></td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(1400);
+	});
+	$(window).resize(function(e) {
+		tableresize(1400);
+	});
+</script>
+
+<include file="Public/footer" />

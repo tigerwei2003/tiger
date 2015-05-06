@@ -1,0 +1,96 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+	
+		<div id="content">
+			<div id="content-header">
+				<h1>擂台吐槽管理</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('Arena/get_recent_comments')}" class="current">擂台吐槽管理</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+            
+			<div class="container-fluid">
+                
+				<div class="row-fluid">
+					<div class="span12">  
+                    	<div class="sousuo">
+                        <form class="form-horizontal" action="" method="post" id="searchform">
+                
+                        <table rules="none" border="0">
+                            <tbody>
+                            	<tr>
+                                    <td class="searchselect">
+                                    <select name="arena_id">
+                                        <option value="">擂台ID</option>
+                                        <volist name='arenalist' id="vo">
+										<option value="{$vo.id}" <?php if($id == $vo['id']){ echo 'selected';} ?>>{$vo.arena_name}</option>
+										</volist>
+                                    </select>
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-success" onClick="javascript:$('#searchform').submit();"><i class="icon-search icon-white"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                        </form>
+                        </div>
+                        <div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="icon-th"></i>
+								</span>
+								<h5>擂台吐槽管理</h5>
+								<a href="{:U('Arena/push_comments')}"><span class="label btn-success"><i class="icon-plus icon-white"></i>发布吐槽</span></a>
+							</div>
+							<div class="widget-content">
+                            	<div class="cont_max" id="table_sort">
+								<table class="table table-bordered table-striped with-check" id="maxtable" >
+									<thead>
+										<tr>
+                                            <th width="50">account_id</th>
+                                            <th width="100">昵称</th>
+                                            <th width="100">吐槽</th>
+                                            <th width="50">吐槽时间</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    <foreach name="comment_list" item="row">
+										<tr>
+                                            <td>{$row.account_id}</td>
+											<td>{$row.nick_name}</td>
+                                            <td>{$row.comment}</td>
+                                            <td>{$row.skill_level}</td>
+										</tr>
+                                    </foreach>										
+									</tbody>
+								</table>	
+                                </div>
+                                <div class="pagination" style="text-align:center">{$pages}</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div>
+                
+			</div>
+		</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(1400);
+	});
+	$(window).resize(function(e){
+		tableresize(1400);
+	});
+
+</script>       
+<include file="Public/footer" />

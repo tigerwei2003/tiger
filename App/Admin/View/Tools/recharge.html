@@ -1,0 +1,147 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>用户充值</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Tools/recharge')}"
+			class="current">用户充值</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>用户充值</h5>
+
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post" name="basic_validate"
+							id="basic_validate" enctype="multipart/form-data" novalidate>
+							<input type="hidden" name="deviceid" id="device_uuid" value="" />
+							<input type="hidden" name="logintoken" id="login_token" value="" />
+							<div class="control-group account_account_id">
+								<label class="control-label">请填入目标账户ID：</label>
+								<div class="controls">
+									<input type="text" name="account_id" id="accountid"
+										onblur="check_account_id()" /> <br> <span id='a_id'></span>
+								</div>
+							</div>
+							<div class="control-group game_save_serial_serial_id">
+								<label class="control-label">请填入充值卡密码：</label>
+								<div class="controls">
+									<input type="text" name="card" id="card" /><br>
+								</div>
+							</div>
+							<div class="form-actions">
+								<input type="button" value="确定" class="btn btn-primary"
+									onclick="post_use_recharge_card();" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script src="__HTML__/js/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(400);
+	});
+	$(window).resize(function(e) {
+		tableresize(400);
+	});
+</script>
+<script type="text/javascript">
+	//全局  正整数正则  
+	var regactid = /^([1-9]\d+|[0-9]){0,11}$/;
+
+	//开关
+	var flag = 0;
+	var flag1 = 0;
+	var flag2 = 0;
+	var flag3 = 0;
+	var flag4 = 0;
+	//验证账户id
+	function check_account_id() {
+		var account_id = $("#accountid").val();//账户id	
+		if (account_id == "") {
+
+			$('#a_id').html("<font color='red'>请填入目标账户id</font>");
+			flag = 0;
+			return false;
+		}
+		if (!regactid.test(account_id)) {
+			$('#a_id').html("<font color='red'>请填入正确的数值！</font>");
+			flag = 0;
+			return false;
+		}
+		$.ajax({
+					url : "{:U('Tools/check_actid_exist')}",
+					data : {
+						"account_id" : account_id
+					},
+					type : "post",
+					success : function(e) {
+						{
+							if (e == 404) {
+								$('#a_id').html(
+										"<font color='red'>该账户id" + account_id
+												+ "不存在</font>");
+								flag = 0;
+								$("#a_id").focus();
+								return false;
+							}
+							$('#a_id').html("<font color='green'>√</font>");
+							flag = 1;
+							$.getJSON("{:U('Tools/get_actid')}",{"account_id" : account_id},
+											function(data) {
+												if (data != "-1") {
+													$("#device_uuid").val(
+															data.device_uuid);
+													$("#login_token").val(
+															data.login_token);
+												} else {
+													$("#device_uuid").val("");
+													$("#login_token").val("");
+													$('#a_id').html("<font color='red'>该账户deviceid,logintoken查找错误</font>");
+												}
+											});
+							return true;
+						}
+					}
+				})
+	}
+
+	function post_use_recharge_card() {
+		var deviceid = $("#device_uuid").val();
+		var logintoken = $("#login_token").val();
+		var card = $("#card").val();
+		if (deviceid == "" || logintoken == "" || card == "") {
+			alert("参数错误");
+			return false;
+		}
+		var url = "__ROOT__/api.php?m=Client&a=use_recharge_card";
+		$.getJSON(url, {
+			"deviceid" : deviceid,
+			"logintoken" : logintoken,
+			"card" : card
+		}, function(data) {
+			alert("ret:" + data.ret + ",msg:" + data.msg);
+		});
+	}
+</script>
+<include file="Public/footer" />

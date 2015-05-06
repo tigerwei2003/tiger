@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<!-- container-fluid -->
+<head>
+<title>{:C('SEO_TITLE')}</title>
+<meta charset="UTF-8" />
+<meta
+	content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"
+	id="viewport" name="viewport">
+<link rel="stylesheet" href="__HTML__/css/bootstrap.min.css" />
+<link rel="stylesheet" href="__HTML__/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="__HTML__/css/jquery.gritter.css" />
+<link rel="stylesheet" href="__HTML__/css/unicorn.main.css" />
+<link rel="stylesheet" href="__HTML__/css/artDialog.css" />
+<link rel="stylesheet" href="__HTML__/css/unicorn.grey.css"
+	class="skin-color" />
+<link rel="stylesheet" href="__HTML__/css/form.css" />
+<link rel="stylesheet" href="__HTML__/css/public.css" />
+<link rel="stylesheet" href="__HTML__/css/datepicker.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="__HTML__/js/jquery.min.js"></script>
+<script src="__HTML__/js/jquery.ui.custom.js"></script>
+<script src="__HTML__/js/bootstrap.min.js"></script>
+<script src="__HTML__/js/comm.js"></script>
+<script src="__HTML__/js/artDialog.js"></script>
+<script src="__HTML__/js/iframeTools.js"></script>
+<script src="__HTML__/js/formvalidator.js"></script>
+<script src="__HTML__/js/formvalidatorregex.js"></script>
+<script src="__HTML__/js/bootstrap-datepicker.js"></script>
+<script src="__HTML__/js/jquery.jUploader-1.0.min.js"
+	type="text/javascript"></script>
+<script src="__HTML__/js/uploader.js" type="text/javascript"></script>
+<style type="text/css">
+.jUploader-button {
+	background: url(__HTML__/img/up.gif) no-repeat 0 0;
+	height: 23px;
+	width: 43px;
+	border: 0;
+	padding: 0px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+.jUploader-button-hover {
+	background-color: #111111;
+	color: #fff;
+}
+</style>
+</head>
+<body>
+	<div id="header">
+		<h1>
+			<a href="javascript:;">{$nickname}</a>
+		</h1>
+	</div>
+	<div id="user-nav" class="navbar navbar-inverse">
+		<ul class="nav btn-group">
+			<li class="btn btn-inverse"><a title=""
+				href="{$userinfo_edit_url}"><i class="icon icon-user"></i> <span
+					class="text">{$username}</span></a></li>
+			<li class="btn btn-inverse" style="*border-right: none;"><a
+				title="注销" href="{$logout_url}"><i class="icon icon-share-alt"></i>
+					<span class="text">注销</span></a></li>
+		</ul>
+	</div>
+	<div id="sidebar">
+		<a href="#" class="visible-phone"><i
+			class="icon icon-align-justify"></i> 系统导航</a>
+		<ul>
+
+			<volist name="menu_parent_arr['parent']" id="vo"> <if
+				condition="$node_info_header['parent_1_title'] eq $vo['title']">
+			<li class="submenu open active"><else /><li class="submenu" >
+			
+			</if> <a href="#"><i class="icon icon-qrcode"></i> <span>{$vo['title']}</span></a>
+			<ul>
+				<volist name="menu_parent_arr['child'][$vo['id']]" id="voo">
+				<if
+					condition="($node_info_header['title'] eq $voo['title']) OR ($node_info_header['parent_2_title'] eq $voo['title'])">
+				<li class="active"><else /><li>
+				
+				</if> <a href="{:U($voo['url'])}"><i class="icon icon-ok-sign"></i> <span>{$voo.title}</span></a>
+				</li>
+				</volist>
+			</ul>
+			<!-- </li> --> </volist>
+		</ul>
+	</div>

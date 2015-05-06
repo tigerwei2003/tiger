@@ -1,0 +1,333 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>每日游戏统计</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="javascript:;" class="current">每日游戏统计</a>
+		<a href="javascript:;" onClick="javascript:history.go(-1);"
+			title="Go to Back" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row-fluid">
+			<div class="span12">
+
+
+
+				<!--一个通栏BOX-->
+				<div class="row-fluid phonenone" style="margin-top: -5px;">
+					<div class="span12">
+						<div class="widget-box widget-calendar">
+							<div class="widget-title">
+								<span class="icon"><i class="icon-random"></i></span>
+								<h5 id="charttitle">近半月数据</h5>
+								<!--
+                                        <div class="rightselect">
+                                        <select onChange="javascript:getForm(this);">
+                                        	<option value="1">用户统计
+                                            <option value="2">游戏统计
+                                            <option value="3">活跃统计
+                                        </select>
+                                        </div>
+                                        -->
+							</div>
+							<div class="widget-content nopadding" style="overflow: hidden;">
+								<div class="chartcontent" id="container_1"></div>
+								<div class="chartcontent" id="container_2"
+									style="display: none;"></div>
+								<div class="chartcontent" id="container_3"
+									style="display: none;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--一个通栏BOX-->
+				<div class="sousuo">
+					<form class="form-horizontal" action="" method="post"
+						id="searchform">
+					
+						<table rules="none" border="0">
+							<tbody>
+								<tr>
+									<td class="searchselect"><select name="game_id">
+											<option value="">游戏</option>
+											<volist name="game" id="data">
+											<option value="{$data['game_id']}"
+												<php>if($data['game_id']==$game_id){echo 'selected';}</php>
+												>{$data['game_id']}:{$data['game_name']}
+											</option>
+											</volist>
+									</select></td>
+									<td>
+										<button class="btn btn-success"
+											onClick="javascript:$('#searchform').submit();">
+											<i class="icon-search icon-white"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-leaf"></i></span>
+						<h5>每日游戏统计明细</h5>
+						 <a href="{:U('Export/gamechart',array('city'=>$city,'startdate'=>$startdate,'enddate'=>$enddate))}"><span
+							class="label btn-warning"><i
+								class=" icon-download-alt icon-white"></i> 导出</span></a> 
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th>日期</th>
+										<th>游戏ID</th>
+										<th>游戏名称</th>
+										<th>当日活跃用户</th>
+										<th>当日总游戏时间</th>
+										<th>当日活跃设备</th>
+										<th>当日最高在线</th>
+										<th>当日试玩次数</th>
+										<th>当日启动游戏次数</th>
+										<th>更新时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="datalist" item="row">
+									<tr>
+										<td>{$row.date}</td>
+										<td>{$row.game_id}</td>
+										<td>{$row.game_name}</td>
+										<td>{$row.daily_active_user}</td>
+										<td>{$row.daily_play_time}</td>
+										<td>{$row.daily_active_device}</td>
+										<td>{$row.max_concurrent_user}</td>
+										<td>{$row.daily_trial_count}</td>
+										<td>{$row.daily_start_count}</td>
+										<td>{$row.update_time|date='Y-m-d H:i:s',###}</td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script src="__HTML__/charts/highcharts.js" type="text/javascript"></script>
+<script src="__HTML__/charts/modules/exporting.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		var chart;
+		chart_user('container_1');
+		//chart_game('container_2');
+		//chart_huoyue('container_3');
+	});
+
+	//用户统计
+	function chart_user(id) {
+		//声明报表对象  
+		var chart = new Highcharts.Chart(
+				{
+					chart : {
+						//将报表对象渲染到层上  
+						renderTo : id
+					},
+					title : {
+						text : '云游戏近半月数据曲线图'
+					},
+					credits : {
+						text : '云游戏',
+						href : 'http://www.pyou.com/'
+					},
+					xAxis : {
+						categories : [ <?php echo $yy; ?> ],
+						labels : {
+							style : {
+								font : 'normal 12px 宋体',
+							}
+						}
+					},
+					yAxis : {
+						title : {
+							text : ''
+						},
+						min : 0
+					},
+					tooltip : {
+						formatter : function() {
+							return '' + this.x + this.series.name + ': '
+									+ this.y + ' ';
+						}
+					},
+
+					//设定报表对象的初始数据  
+					series : [ {
+						name : '当日活跃用户',
+						data : [ <?php echo $d1; ?> ]
+					}, {
+						name : '当日总游戏时间',
+						data : [ <?php echo $d2; ?> ]
+					}, {
+						name : '当日最高在线',
+						data : [ <?php echo $d3; ?> ]
+					}, {
+						name : '当日试玩次数',
+						data : [ <?php echo $d4; ?> ]
+					}, {
+						name : '当日启动游戏次数',
+						data : [ <?php echo $d5; ?> ],
+						visible : false
+					}, {
+						name : '当日活跃设备',
+						data : [ <?php echo $d6; ?> ],
+						visible : false
+					}, {
+						name : '7天活跃',
+						data : [ <?php echo $d7; ?> ],
+						visible : false
+					}, {
+						name : '30天活跃',
+						data : [ <?php echo $d8; ?> ],
+						visible : false
+					} ]
+				});
+
+	}
+
+	/*
+	 //游戏统计
+	 function chart_game(id){ 
+	 //声明报表对象  
+	 var chart = new Highcharts.Chart({  
+	 chart: {  
+	 //将报表对象渲染到层上  
+	 renderTo: id
+	 },title: {
+	 text: '游戏统计'
+	 },credits: {
+	 text: '云游戏',
+	 href: 'http://www.pyou.com/'
+	 },xAxis: {
+	 categories: [<?php echo $yy; ?>],labels:{
+	 style:{
+	 font:'normal 12px 宋体',	
+	 }	
+	 }
+	 },yAxis: {
+	 title: {
+	 text: '次数'
+	 },
+	 min: 0
+	 },tooltip: {
+	 formatter: function() {
+	 return ''+
+	 this.x + this.series.name +': '+ this.y +' 次数';
+	 }
+	 }, 
+	
+	 //设定报表对象的初始数据  
+	 series: [{ 
+	 name: '主机游戏', 
+	 data: [<?php echo $d4; ?>]          
+	 },{ 
+	 name: '街机投币', 
+	 data: [<?php echo $d5; ?>]          
+	 }]  
+	 });  
+	
+	 } 
+
+	 //活跃统计
+	 function chart_huoyue(id){ 
+	 //声明报表对象  
+	 var chart = new Highcharts.Chart({  
+	 chart: {  
+	 //将报表对象渲染到层上  
+	 renderTo: id
+	 },title: {
+	 text: '活跃统计'
+	 },credits: {
+	 text: '云游戏',
+	 href: 'http://www.pyou.com/'
+	 },xAxis: {
+	 categories: [<?php echo $yy; ?>],labels:{
+	 style:{
+	 font:'normal 12px 宋体',	
+	 }	
+	 }
+	 },yAxis: {
+	 title: {
+	 text: '数量'
+	 },
+	 min: 0
+	 },tooltip: {
+	 formatter: function() {
+	 return ''+
+	 this.x + this.series.name +': '+ this.y +' 数量';
+	 }
+	 }, 
+	
+	 //设定报表对象的初始数据  
+	 series: [{ 
+	 name: '当日活跃', 
+	 data: [<?php echo $d6; ?>]          
+	 },{ 
+	 name: '7天活跃', 
+	 data: [<?php echo $d7; ?>]          
+	 },{ 
+	 name: '30天活跃', 
+	 data: [<?php echo $d8; ?>]          
+	 }]  
+	 });  
+	
+	 } 
+
+
+	 //切换图标
+	 function getForm(obj){
+	 var type = $(obj).val();
+	 $('.chartcontent').hide();
+	 $('#container_'+type).show();
+	 }
+	 */
+
+	$(document).ready(function(e) {
+		//$('.chartcontent').css('width',$('.span12').width()+'px');
+		tableresize(1400);
+	});
+	$(window).resize(function(e) {
+		//$('.chartcontent').css('width',$('.span12').width()+'px');
+		tableresize(1400);
+	});
+</script>
+
+<include file="Pubilc/footer" />

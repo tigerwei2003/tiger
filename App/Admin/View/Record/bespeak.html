@@ -1,0 +1,159 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>预约记录</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Record/bespeak')}"
+			class="current">预约记录</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="sousuo">
+					<form class="form-horizontal" action="{$sousuo_url}" method="post"
+						id="searchform">
+					
+						<table rules="none" border="0">
+							<tbody>
+								<tr>
+									<td class="searchselect"><select name="activity">
+											<option value="">全部活动</option>
+											<option <php> if($activity=='991005'){ echo
+												'selected';} </php> value="991005">十一活动</option>
+											<option <php> if($activity=='990915'){ echo
+												'selected';} </php> value="990915">官网上线</option>
+
+									</select></td>
+									<td class="searchselect"><select name="type">
+											<option value="">使用情况</option>
+											<option <php> if($type==1){ echo 'selected';} </php>
+												value="1">已使用</option>
+											<option <php> if($type==0){ echo 'selected';} </php>
+												value="0">未使用</option>
+									</select></td>
+									<td class="searchselect"><input type="text" name="city"
+										value="<php> if($city){ echo $city;}else{ echo '城市';} </php>"
+										onBlur="blur_input(this,'城市')"
+										onClick="click_input(this,'城市')"></td>
+									<td class="searchselect"><input type="text" name="phone"
+										value="<php> if($phone){ echo $phone;}else{ echo '手机号';} </php>"
+										onBlur="blur_input(this,'手机号')"
+										onClick="click_input(this,'手机号')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="startdate"
+										value="<php> if($startdate){ echo $startdate;}else{ echo '开始日期';} </php>"
+										onBlur="blur_input(this,'开始日期')"
+										onClick="click_input(this,'开始日期')"></td>
+									<td>-</td>
+									<td><input type="text" name="enddate"
+										value="<php> if($enddate){ echo $enddate;}else{ echo '结束日期';} </php>"
+										onBlur="blur_input(this,'结束日期')"
+										onClick="click_input(this,'结束日期')"></td>
+									<td>
+										<button class="btn btn-success"
+											onClick="javascript:$('#searchform').submit();">
+											<i class="icon-search icon-white"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-leaf"></i></span>
+						<h5>预约记录</h5>
+						<a
+							href="{:U('Export/bespeak',array('city'=>$city,'startdate'=>$startdate,'enddate'=>$enddate,'type'=>$type))}"><span
+							class="label btn-warning"><i
+								class=" icon-download-alt icon-white"></i> 导出</span></a> 
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th>活动</th>
+										<th>姓名</th>
+										<th>城市</th>
+										<th>电话</th>
+										<th>邮箱</th>
+										<th>备注</th>
+										<th>使用</th>
+										<th>填表时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="bespeak" item="row">
+									<tr>
+										<td>{$row.activity}</td>
+										<td>{$row.realname}</td>
+										<td>{$row.city}</td>
+										<td>{$row.phone}</td>
+										<td>{$row.email}</td>
+										<td>{$row.remarks}</td>
+										<td>
+											<php> if($row['charge_time']>0){ echo '<span class="green">已使用</span>';}else{ echo '未使用';} </php>
+										</td>
+										<td><if condition="$row['inputtime']">{$row.inputtime|date='Y-m-d',###}</if></td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	function showcontent(id) {
+		if (id) {
+			$.get("__HTML__?m=Registration&a=showcontent&id=" + id, function(
+					result) {
+				if (result) {
+					$('#showcontent').html(result);
+					art.dialog({
+						title : '预约详情',
+						content : document.getElementById("showcontent"),
+						width : 400,
+						height : 300,
+						lock : true
+					});
+				}
+			});
+		}
+	}
+	$(document).ready(function(e) {
+		tableresize(900);
+	});
+	$(window).resize(function(e) {
+		tableresize(900);
+	});
+</script>
+
+<include file="Public/footer" />

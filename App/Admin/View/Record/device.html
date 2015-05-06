@@ -1,0 +1,199 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>设备列表</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Record/device')}"
+			class="current">设备列表</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="sousuo">
+					<form class="form-horizontal" action="" method="post"
+						id="searchform">
+						<table rules="none" border="0">
+							<tbody>
+								<tr>
+									<td><select name="region">
+											<option value="">省份</option>
+											<php> 
+										foreach($regionlist as $v){
+											if($v['region']){
+												if($v['region_id']==$region){
+													$select = 'selected';
+												}else{
+													$select = '';	
+												}
+												echo '<option value="'.$v['region_id'].'" '.$select.'>'.$v['region'].'</option>';	
+											}
+										}
+										</php>
+									</select></td>
+									<td class="searchselect"><select name="isp">
+											<option value="">运营商</option>
+											<php>
+										foreach($isplist as $v){
+											if($v['isp']){
+												if($v['isp_id']==$isp){
+													$select = 'selected';
+												}else{
+													$select = '';	
+												}
+												echo '<option value="'.$v['isp_id'].'" '.$select.'>'.$v['isp'].'</option>';	
+											}
+										}
+										</php>
+									</select></td>
+									<td class="searchselect"><input type="text" name="type"
+										value="<?php if($type){ echo $type;}else{ echo '设备类型';} ?>"
+										onBlur="blur_input(this,'设备类型')"
+										onClick="click_input(this,'设备类型')"></td>
+									<td class="searchselect"><select name="ver">
+											<option value="">客户端版本</option>
+											<php>
+										foreach($clientverlist as $v){
+											if($v['client_ver']){
+												if($v['client_ver']==$ver){
+													$select = 'selected';
+												}else{
+													$select = '';	
+												}
+												echo '<option value="'.$v['client_ver'].'" '.$select.'>'.$v['client_ver'].'</option>';	
+											}
+										}
+										</php>
+									</select></td>
+									<td class="searchselect"><select name="pid">
+											<option value="">客户渠道</option>
+											<php>
+										foreach($pidlist as $v){
+											if($v['pid']){
+												if($v['pid']==$pid){
+													$select = 'selected';
+												}else{
+													$select = '';	
+												}
+												echo '<option value="'.$v['pid'].'" '.$select.'>'.$v['pid'].'</option>';	
+											}
+										}
+										</php>
+									</select></td>
+									<td class="searchselect"><input type="text" name="device"
+										value="<php> if($device){ echo $device;}else{ echo '设备ID';} </php>"
+										onBlur="blur_input(this,'设备ID')"
+										onClick="click_input(this,'设备ID')"></td>
+									<td class="searchselect"><input type="text" name="account"
+										value="<php> if($account){ echo $account;}else{ echo '帐号ID';} </php>"
+										onBlur="blur_input(this,'帐号ID')"
+										onClick="click_input(this,'帐号ID')"></td>
+									<td class="searchselect" style="padding-right: 0"><input
+										type="text" name="startdate"
+										value="<php> if($startdate){ echo $startdate;}else{ echo '开始日期';} </php>"
+										onBlur="blur_input(this,'开始日期')"
+										onClick="click_input(this,'开始日期')"></td>
+									<td class="searchselect">-</td>
+									<td class="searchselect"><input type="text" name="enddate"
+										value="<php> if($enddate){ echo $enddate;}else{ echo '结束日期';} </php>"
+										onBlur="blur_input(this,'结束日期')"
+										onClick="click_input(this,'结束日期')"></td>
+									<td>
+										<button class="btn btn-success"
+											onClick="javascript:$('#searchform').submit();">
+											<i class="icon-search icon-white"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-leaf"></i></span>
+						<h5>设备列表</h5>
+						<!--
+                                <a href="{:U('Export/gamepack')}"><span class="label btn-warning"><i class=" icon-download-alt icon-white"></i> 导出</span></a>
+                                -->
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th>设备编号</th>
+										<th>设备UUID</th>
+										<th>设备名称</th>
+										<th>绑定帐号</th>
+										<th>设备类型</th>
+										<th>客户端版本</th>
+										<th>设备别名</th>
+										<th>IP</th>
+										<th>省份</th>
+										<th>运营商</th>
+										<th>客户渠道</th>
+										<th>创建时间</th>
+										<th>最近登录</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="devicelist" item="row">
+									<tr>
+										<td>{$row.id}</td>
+										<td>{$row.device_uuid}</td>
+										<td>{$row.model}</td>
+										<td>{$row.bind_account}</td>
+										<td>{$row.client_type}</td>
+										<td>{$row.client_ver}</td>
+										<td>{$row.byname}</td>
+										<td>{$row.ip}</td>
+										<td>{$row.region}</td>
+										<td>{$row.isp}</td>
+										<td>{$row.pid}</td>
+										<td><if condition="$row['create_time']">{$row.create_time|date='Y-m-d
+											H:i:s',###}</if></td>
+										<td><if condition="$row['last_login_time']">{$row.last_login_time|date='Y-m-d
+											H:i:s',###}</if></td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(1500);
+	});
+	$(window).resize(function(e) {
+		tableresize(1500);
+	});
+</script>
+
+<include file="Public/footer" />

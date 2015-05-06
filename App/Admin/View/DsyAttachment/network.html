@@ -1,0 +1,109 @@
+<include file="header" />
+<body>
+	<script type="text/javascript">
+		function showimg(pages, type) {
+			var keywords = $('#keywords').val();
+			if (keywords) {
+				if (type == 'prev') {
+					var pages = $('#pages').val() - 1;
+					$('#pages').val(pages);
+				} else if (type == 'next') {
+					var pages = $('#pages').val();
+					pages++;
+					$('#pages').val(pages);
+				}
+				$('#showmessages').show();
+				$('#showfilelist').hide();
+				$('#showmessages').text('数据获取中,请稍候...');
+				if (pages < 1) {
+					pages = 0;
+					$('#prevbtn').hide();
+				} else {
+					$('#prevbtn').show();
+				}
+				$.get("{:U('DsyAttachment/network')}", {
+					keywords : keywords,
+					pages : pages
+				}, function(data) {
+					if (data) {
+						$('#showmessages').hide();
+						$('#showfilelist').show();
+						$('#showpages').show();
+						$('#showfilelist').html(data);
+						showfile();
+					} else {
+						$('#showmessages').text('未能获取数据！');
+					}
+				});
+			} else {
+				$('#showmessages').text('请输入关键字！');
+			}
+		}
+	</script>
+	<table width="100%" rules="none" border="0" cellpadding="0"
+		cellspacing="0">
+		<tr>
+			<td style="padding: 10px;">
+				<div id="nav">
+					<div class="list">
+						<ul>
+							<li><a href="{:U('DsyAttachment/img_upload')}">上传图片</a></li>
+							<!-- <li><a href="index.php?go=attachment.upload.web">网络文件</a></li> -->
+							<li><a href="{:U('DsyAttachment/index')}">已上传的</a></li>
+							<li class="ing"><a
+								href="{:U('DsyAttachment/network')}">从网上查找</a></li>
+							<li><a href="{:U('DsyAttachment/not_use')}">未使用的</a></li>
+						</ul>
+					</div>
+				</div>
+				<div id="content">
+					<table width="100%" rules="none" border="0" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td style="padding: 15px 15px 0px 15px;">
+								<div id="searchfile">
+									<table rules="none" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>搜索图片:</td>
+											<td><input type="text" class="inputkeywords"
+												name="keywords" id="keywords"
+												value="<?php if($keywords){ echo $keywords; }?>"
+												style="padding: 3px;" /></td>
+											<td><input type="hidden" id="pages" value="1"><input
+												type="button" onClick="javascript:showimg(1,'');"
+												class="sim_sub" value="搜索"></td>
+											<td>
+												<div id="showpages">
+													<div id="pages">
+														<div id="nextbtn">
+															<a href="javascript:;"
+																onClick="javascript:showimg('','next');" class="a1">下一页</a>
+														</div>
+														<div id="prevbtn">
+															<a href="javascript:;"
+																onClick="javascript:showimg('','prev');" class="a1">上一页</a>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding: 5px 10px;">
+								<div id="showmessages">图片来源于网络，如有侵权请与我们联系。</div>
+								<div id="filelist">
+									<ul id="showfilelist"></ul>
+								</div>
+
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

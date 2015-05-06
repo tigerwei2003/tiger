@@ -1,0 +1,57 @@
+<include file="header" />
+<body>
+	<table width="100%" rules="none" border="0" cellpadding="0"
+		cellspacing="0">
+		<tr>
+			<td style="padding: 10px;">
+				<div id="nav">
+					<div class="list">
+						<ul>
+							<li><a
+								href="{:U('DsyAttachment/img_upload',array('model'=>$model,'param_field'=>$param_val))}">上传图片</a></li>
+							<li class="ing"><a
+								href="{:U('DsyAttachment/index',array('model'=>$model,'param_field'=>$param_val))}">已上传的</a></li>
+						</ul>
+					</div>
+				</div>
+				<div id="content">
+					<table width="100%" rules="none" border="0" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td style="padding: 5px 10px;">
+								<div id="filelist">
+									<ul id="showfilelist">
+										<foreach name="images" item="v">
+										<li>
+											<div class="imgdiv">
+												<div class="select"></div>
+												<div class="outline">
+													<img src="<?php echo $v['filepath']; ?>" width="80"
+														height="60" />
+												</div>
+											</div> <input type="checkbox" name="upfile"
+											value="<?php echo $v['id']; ?>" style="display: none;" /> <input
+											type="checkbox" name="upfilesimurl"
+											value="<?php echo $v['filepath']; ?>" style="display: none;" />
+											<input type="checkbox" name="upfilebigurl"
+											value="<?php echo  $v['filepath']; ?>" style="display: none;" />
+										</li>
+										</foreach>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding: 5px 15px 10px 15px;">
+								<div id="pages">
+									<?php echo $pages?>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

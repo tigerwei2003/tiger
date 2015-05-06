@@ -1,0 +1,13 @@
+@charset "utf-8";
+.sim_add{ background:url(../img/btn/sim_sub_green.gif) no-repeat 0 0px; color:#ffffff; font-size:12px; height:24px; width:80px; border:0;padding:0px; margin:0px; cursor:pointer;}
+.imgs_show { /* width:620px; */}
+.oneimg { width:80px; height:60px;border:1px solid #cccccc; background:#ffffff; float:left; padding:3px; margin-top:5px; margin-right:10px;  position:relative;}
+.oneimg img{ width:80px; height:60px;}
+.closeimg{ width:20px; height:20px; position:absolute; right:-8px; top:-8px; z-index:10;}
+a.iclose:hover {background:url(../img/btn/close.png) no-repeat 0px -20px;width:20px;height:20px;display: block;float: left; padding:0; margin:0;cursor: pointer; overflow:hidden;text-decoration:none;}
+a.iclose{background:url(../img/btn/close.png) no-repeat 0px 0px;width:20px;height:20px;display: block;float: left; padding:0; margin:0;cursor: pointer; overflow:hidden;text-decoration:none;}
+.imgdiv{ width:80px;height:60px; text-align:center; vertical-align:middle; position:relative;display: table-cell; overflow:hidden;}
+.imgdiv .outline { *position:absolute; top:50%; } 
+.imgdiv .outline img { *position:relative; top:-50%; left:-50%; } 
+.imgs_show table{ margin-top:5px;}
+.imgs_show table tr td{ padding:5px 5px 0 0;}

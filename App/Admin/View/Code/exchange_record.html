@@ -1,0 +1,127 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+	
+		<div id="content">
+			<div id="content-header">
+				<h1>特殊卡使用记录</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('Code/exchange')}" class="current">特殊卡管理</a>
+                <a href="{:U('Code/exchange_type')}" class="current">特殊卡类别管理</a>
+                <a href="{:U('Code/show_record?type_id='.$type_id.'&card_pass='.$card_pass.'&device_uuid='.$device_uuid)}" class="current">特殊卡使用记录</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+            
+			<div class="container-fluid"> 
+				<div class="row-fluid">
+					<div class="span12">
+                        <div class="sousuo">
+                        <form class="form-horizontal" action="" method="post" id="searchform">
+          
+                        <table rules="none" border="0">
+                            <tbody>
+                            	<tr>
+                                    <td class="searchselect">
+                                    <select name="type_id" style="width:100px;">
+                                    	<option value="">类别</option>
+                                        <foreach name="typelist" item="vc">
+                                        <option value="{$vc.type_id}" <?php if($vc['type_id']==$type_id) echo 'selected'; ?> >{$vc.type_name}</option>
+                                        </foreach>
+                                    </select>
+                                    </td>
+                                    <td class="searchselect">
+                                    <select name="pid" style="width:100px;">
+                                    	<option value="">渠道</option>
+                                        <foreach name="dealerlist" item="vc">
+                                        <option value="{$vc.id}" <?php if($vc['id']==$pid) echo 'selected'; ?> >{$vc.dealer_name}</option>
+                                        </foreach>
+                                    </select>
+                                    </td>
+                                    <td style="padding-right:0" >
+                                    <input type="text" name="card_pass"  value="<?php if($card_pass){ echo $card_pass;}else{ echo '卡号';} ?>" onBlur="blur_input(this,'卡号')" onClick="click_input(this,'卡号')">
+                                    </td>
+                                    <td style="padding-right:0">
+                                    <input type="text" name="device_uuid"  value="<?php if($device_uuid){ echo $device_uuid;}else{ echo '设备UUID';} ?>" onBlur="blur_input(this,'设备UUID')" onClick="click_input(this,'设备UUID')">
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-success" onClick="javascript:$('#searchform').submit();"><i class="icon-search icon-white"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                        </form>
+                        </div>
+                        <div class="widget-box">
+							<div class="widget-title">
+								<span class="icon"><i class="icon-leaf"></i></span>
+								<h5>特殊卡使用记录</h5>
+                         
+                                <a href="{:U('Export/exchange_record',array('type_id'=>$type_id,'card_pass'=>$card_pass,'device_uuid'=>$device_uuid,'pid'=>$pid))}" class="phonenone"><span class="label btn-warning"><i class=" icon-download-alt icon-white"></i> 导出</span></a>
+                                
+							</div>
+							<div class="widget-content">
+                            	<div class="cont_max">
+								<table class="table table-bordered table-striped with-check" id="maxtable">
+									<thead>
+										<tr>
+                                        	<th>id</th>
+											<th>兑换券</th>
+                                            <th>类别</th>
+                                            <th>类别标识</th>
+                                            <th>使用人ID</th>
+											<th>使用人</th>
+                                            <th>使用设备</th>
+                                            <th>渠道</th>
+                                            <th>使用时间</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    <foreach name="recordlist" item="row">
+										<tr>
+                                        	<td>{$row.id}</td>
+											<td>{$row.card_pass}</td>
+                                            <td>{$row.type_name}</td>
+                                            <td><?php if($row['type_mark']==1){ echo '一码多次'; }else{echo '多码多次';}?></td>
+                                            <td>{$row.account_id}</td>
+											<td>{$row.account_name}</td>
+                                            <td>{$row.device_uuid}</td>
+                                            <td>{$row.dealer_name}</td>
+                                            <td><if condition="$row['charge_time']">{$row.charge_time|date='Y-m-d',###}</if></td>
+										</tr>
+                                    </foreach>										
+									</tbody>
+								</table>
+                                </div>	
+                                <div class="pagination" style="text-align:center">{$pages}</div>	  					
+							</div> 
+						</div>
+                        
+					</div>
+				</div>
+				
+
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div> 
+			</div>
+		</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		$('.datepicker').datepicker();
+	});
+	$(document).ready(function(e) {
+		tableresize(1600);
+	});
+	$(window).resize(function(e){
+		tableresize(1600);
+	});
+</script>
+<include file="Public/footer" />

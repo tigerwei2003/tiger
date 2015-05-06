@@ -1,0 +1,122 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>游戏包购买记录</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Record/gamepack')}"
+			class="current">游戏包购买记录</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="sousuo">
+					<form class="form-horizontal" action="" method="post"
+						id="searchform">
+						<table rules="none" border="0">
+							<tbody>
+								<tr>
+									<td style="padding-right: 0"><input type="text"
+										name="account"
+										value="<php> if($account){ echo $account;}else{ echo '账户';} </php>"
+										onBlur="blur_input(this,'账户')"
+										onClick="click_input(this,'账户')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="packid"
+										value="<php> if($packid){ echo $packid;}else{ echo '游戏包ID';} </php>"
+										onBlur="blur_input(this,'游戏包ID')"
+										onClick="click_input(this,'游戏包ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="startdate"
+										value="<php> if($startdate){ echo $startdate;}else{ echo '开始日期';} </php>"
+										onBlur="blur_input(this,'开始日期')"
+										onClick="click_input(this,'开始日期')" title="Go to Home">
+									</td>
+									<td>-</td>
+									<td><input type="text" name="enddate"
+										value="<php> if($enddate){ echo $enddate;}else{ echo '结束日期';} </php>"
+										onBlur="blur_input(this,'结束日期')"
+										onClick="click_input(this,'结束日期')"></td>
+									<td>
+										<button class="btn btn-success"
+											onClick="javascript:$('#searchform').submit();">
+											<i class="icon-search icon-white"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-leaf"></i></span>
+						<h5>游戏包购买记录</h5>
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th>账户</th>
+										<th>游戏包ID</th>
+										<th>游戏包</th>
+										<th>创建时间</th>
+										<th>到期时间</th>
+										<th>最近一次续费</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="gamepacklist" item="row">
+									<tr>
+										<td>{$row.account_id}</td>
+										<td>{$row.gamepack_id}</td>
+										<td>{$row.pack_name}</td>
+										<td><if condition="$row['create_time']">{$row.create_time|date='Y-m-d
+											H:i:s',###}</if></td>
+										<td><if condition="$row['deadline_time']">{$row.deadline_time|date='Y-m-d
+											H:i:s',###}</if></td>
+										<td><if condition="$row['last_recharge_time']">{$row.last_recharge_time|date='Y-m-d
+											H:i:s',###}</if></td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(1400);
+	});
+	$(window).resize(function(e) {
+		tableresize(1400);
+	});
+</script>
+
+<include file="Public/footer" />

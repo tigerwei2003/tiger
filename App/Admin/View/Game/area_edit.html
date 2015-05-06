@@ -1,0 +1,197 @@
+<include file="Public/header" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.formValidator.initConfig({
+			autotip : true,
+			formid : "basic_validate",
+			onerror : function(msg) {
+			}
+		});
+		$("#id").formValidator({
+			onshow : "请输入数字ID",
+			onfocus : "请输入数字ID"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入数字ID！"
+		});
+		$("#name").formValidator({
+			onshow : "区域名称",
+			onfocus : "请输入区域名称"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入区域名称！"
+		});
+		$("#status").formValidator({
+			onshow : "状态：默认正常为1",
+			onfocus : "请输入状态"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入状态！"
+		});
+		$("#level").formValidator({
+			onshow : "级别：默认0",
+			onfocus : "请输入级别"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入级别！"
+		});
+		$("#speed_test_addr").formValidator({
+			onshow : "请输入测速服务器地址",
+			onfocus : "请输入测速服务器地址"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入测速服务器地址！"
+		});
+		$("#speed_test_addr_backup").formValidator({
+			onshow : "请输入备用测速服务器地址",
+			onfocus : "请输入备用测速服务器地址"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入备用测速服务器地址！"
+		});
+		$("#speed_test_port").formValidator({
+			onshow : "测速端口：默认8081",
+			onfocus : "请输入测速端口"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入测速端口！"
+		});
+		$("#gsm_addr").formValidator({
+			onshow : "请输入GSM服务器地址",
+			onfocus : "请输入GSM服务器地址"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入GSM服务器地址！"
+		});
+		$("#gsm_port").formValidator({
+			onshow : "GSM端口：默认8080",
+			onfocus : "请输入GSM端口"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入GSM端口！"
+		});
+	});
+</script>
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>编辑区域</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Game/area')}"
+			class="current">编辑区域</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>编辑区域</h5>
+						<a
+							href="{:U('Game/area')}"><span class="label btn-primary"><i
+								class=" icon-list-alt icon-white"></i> 区域管理</span></a> 
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post"
+							action="" name="basic_validate"
+							id="basic_validate" enctype="multipart/form-data" novalidate >
+						<input type="hidden" name="dosubmit" value="1" /> <input
+							type="hidden" name="editdate" value="{$row.id}" />
+						<div class="control-group">
+							<label class="control-label">区域ID</label>
+							<div class="controls">
+								<input type="text" name="info[id]" value="{$row.id}"<?php
+								if($row['id']){ echo 'readonly'; }else{ echo 'id="id"';} ?> />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">区域名称</label>
+							<div class="controls">
+								<input type="text" name="info[name]" value="{$row.name}"
+									id="name" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">状态</label>
+							<div class="controls">
+								<input type="text" name="info[status]" value="{$row.status}"
+									id="status" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">级别</label>
+							<div class="controls">
+								<input type="text" name="info[level]" value="{$row.level}"
+									id="level" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">测速服务器地址</label>
+							<div class="controls">
+								<input type="text" name="info[speed_test_addr]"
+									value="{$row.speed_test_addr}" id="speed_test_addr" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">备用测速服务器地址</label>
+							<div class="controls">
+								<input type="text" name="info[speed_test_addr_backup]"
+									value="{$row.speed_test_addr_backup}"
+									id="speed_test_addr_backup" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">测速端口</label>
+							<div class="controls">
+								<input type="text" name="info[speed_test_port]"
+									value="{$row.speed_test_port}" id="speed_test_port" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">GSM服务器地址</label>
+							<div class="controls">
+								<input type="text" name="info[gsm_addr]" value="{$row.gsm_addr}"
+									id="gsm_addr" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">GSM端口</label>
+							<div class="controls">
+								<input type="text" name="info[gsm_port]" value="{$row.gsm_port}"
+									id="gsm_port" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">备注</label>
+							<div class="controls">
+								<input type="text" name="info[note]" value="{$row.note}"
+									id="note" />
+							</div>
+						</div>
+
+						<div class="form-actions">
+							<input type="submit" value="保存" class="btn btn-primary" />
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+
+
+<include file="Public/footer" />

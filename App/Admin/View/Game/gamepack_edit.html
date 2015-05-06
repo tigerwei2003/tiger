@@ -1,0 +1,120 @@
+<include file="Public/header" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.formValidator.initConfig({
+			autotip : true,
+			formid : "basic_validate",
+			onerror : function(msg) {
+			}
+		});
+		$("#pack_id").formValidator({
+			onshow : "请输入游戏包ID",
+			onfocus : "请输入游戏包ID"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入游戏包ID！"
+		});
+		$("#pack_name").formValidator({
+			onshow : "请输入游戏包名称",
+			onfocus : "请输入游戏包名称"
+		}).inputValidator({
+			min : 1,
+			onerror : "请输入游戏包名称！"
+		});
+
+	});
+</script>
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+<div id="content">
+	<div id="content-header">
+		<h1>编辑游戏包</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Game/gamepack')}"
+			class="current">游戏包管理</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>编辑游戏包</h5>
+						<a
+							href="{:U('Game/gamepack')}"><span
+							class="label btn-primary"><i
+								class=" icon-list-alt icon-white"></i> 游戏包管理</span></a> 
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post"
+							action="" name="basic_validate"
+							id="basic_validate" enctype="multipart/form-data" novalidate >
+						<input type="hidden" name="dosubmit" value="1" /> <input
+							type="hidden" name="editdate" value="{$row.pack_id}" />
+						<div class="control-group">
+							<label class="control-label">游戏包名称</label>
+							<div class="controls">
+								<input type="text" name="info[pack_name]"
+									value="{$row.pack_name}" id="pack_name" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">游戏包介绍</label>
+							<div class="controls">
+								<textarea name="info[summary]">{$row.summary}</textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">游戏包封面图</label>
+							<div class="controls">{$upload_gamepack_str}</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">状态</label>
+							<div class="controls">
+								<label style="display: inline !important;"><input
+									type="radio" name="info[status]" value="1"
+								<php>if($row['status']==1){echo 'checked';}</php>/>启用</label> <label
+									style="display: inline !important;"><input type="radio"
+									name="info[status]" value="0"
+								<php>if($row['status']==0){echo 'checked';}</php>/>禁用</label>
+							</div>
+						</div>
+						<div class="form-actions">
+							<input type="submit" value="保存" class="btn btn-primary" />
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script>
+	//解决添加的时候上传按钮的param_field的值为-1（即添加的时候没有获取到唯一的标识a）
+	$("#pack_id").keyup(
+			function() {
+				var replace_val = null;
+				replace_val = $("#pack_id").val();
+				$(".sim_add").each(
+						function() {
+							var modify_str = $(this).attr("onclick").replace(
+									/param_field=-?\d*/g,
+									'param_field=' + replace_val);
+							$(this).attr("onclick", modify_str);
+						});
+			});
+</script>
+
+
+<include file="Public/footer" />

@@ -1,0 +1,113 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+	
+		<div id="content">
+			<div id="content-header">
+				<h1>擂台账号列表</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('Arena/arena_account')}" class="current">擂台账号列表</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+            
+			<div class="container-fluid">
+                
+				<div class="row-fluid">
+					<div class="span12">  
+                    	<div class="sousuo">
+                        <form class="form-horizontal" action="" method="post" id="searchform">
+                
+                        <table rules="none" border="0">
+                            <tbody>
+                            	<tr>
+                                    <td class="searchselect">
+                                    <select name="game_id">
+                                        <option value="">游戏</option>
+                                        <volist name='games' id="vo">
+										<option value="{$vo.game_id}" <?php if($game_id == $vo['game_id']){ echo 'selected';} ?>>{$vo.game_name}</option>
+										</volist>
+                                    </select>
+                                    </td>
+                                    <td style="padding-right:0">
+                                    <input type="text" name="account_id"  value="<?php if($account_id){ echo $account_id;}else{ echo 'ACCOUNT_ID';} ?>" onBlur="blur_input(this,'ACCOUNT_ID')" onClick="click_input(this,'ACCOUNT_ID')">
+                                    </td>
+                                    <td style="padding-right:0">
+                                    <input type="text" name="rank"  value="<?php if($rank){ echo $rank;}else{ echo 'RANK';} ?>" onBlur="blur_input(this,'RANK')" onClick="click_input(this,'RANK')">
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-success" onClick="javascript:$('#searchform').submit();"><i class="icon-search icon-white"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                        </form>
+                        </div>
+                        <div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="icon-th"></i>
+								</span>
+								<h5>擂台账号列表</h5>
+							</div>
+							<div class="widget-content">
+                            	<div class="cont_max" id="table_sort">
+								<table class="table table-bordered table-striped with-check" id="maxtable" >
+									<thead>
+										<tr>
+                                            <th width="50">account_id</th>
+                                            <th width="100">昵称</th>
+                                            <th width="100">游戏</th>
+                                            <th width="50">战斗等级</th>
+                                            <th width="100">总战斗场次</th>
+                                            <th width="100">总胜利场次</th>
+                                            <th width="100">最大连胜次数</th>
+                                            <th width="100">首次战斗时间</th>
+                                            <th width="100">最近一次战斗时间</th>
+                                            <th width="100">游戏排名</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    <foreach name="account_list" item="row">
+										<tr>
+                                            <td>{$row.account_id}</td>
+											<td>{$row.nickname}</td>
+                                            <td>{$row.game_name}</td>
+                                            <td>{$row.skill_level}</td>
+                                            <td>{$row.total_battles}</td>
+                                            <td>{$row.total_wins}</td>
+                                            <td>{$row.max_combo_num}</td>
+                                            <td>{$row.first_battle_time}</td>
+                                            <td>{$row.last_battle_time}</td>
+                                            <td>{$row.rank}</td>
+										</tr>
+                                    </foreach>										
+									</tbody>
+								</table>	
+                                </div>
+                                <div class="pagination" style="text-align:center">{$pages}</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div>
+                
+			</div>
+		</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(1400);
+	});
+	$(window).resize(function(e){
+		tableresize(1400);
+	});
+
+</script>       
+<include file="Public/footer" />

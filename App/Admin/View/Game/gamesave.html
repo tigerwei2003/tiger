@@ -1,0 +1,163 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>存档列表</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Game/gamesave')}"
+			class="current">存档列表</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="sousuo">
+					<form class="form-horizontal" action="" method="post"
+						id="searchform">
+						
+						<table rules="none" border="0">
+							<tbody>
+								<tr>
+									<td class="searchselect"><select name="status">
+											<option value="">上传结果</option>
+											<option value="1"<?php if($status==1){ echo
+												'selected';} ?>>已上传</option>
+											<option value="2"<?php if($status==2){ echo
+												'selected';} ?>>未上传</option>
+									</select></td>
+									<td style="padding-right: 0"><input type="text"
+										name="serialid"
+										value="<?php if($serialid){ echo $serialid;}else{ echo '序列ID';} ?>"
+										onBlur="blur_input(this,'序列ID')"
+										onClick="click_input(this,'序列ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="saveid"
+										value="<?php if($saveid){ echo $saveid;}else{ echo '存档ID';} ?>"
+										onBlur="blur_input(this,'存档ID')"
+										onClick="click_input(this,'存档ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="accountid"
+										value="<?php if($accountid){ echo $accountid;}else{ echo '账户ID';} ?>"
+										onBlur="blur_input(this,'账户ID')"
+										onClick="click_input(this,'账户ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="deviceid"
+										value="<?php if($deviceid){ echo $deviceid;}else{ echo '设备ID';} ?>"
+										onBlur="blur_input(this,'设备ID')"
+										onClick="click_input(this,'设备ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="gameid"
+										value="<?php if($gameid){ echo $gameid;}else{ echo '游戏ID';} ?>"
+										onBlur="blur_input(this,'游戏ID')"
+										onClick="click_input(this,'游戏ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="gsid"
+										value="<?php if($gsid){ echo $gsid;}else{ echo 'GS ID';} ?>"
+										onBlur="blur_input(this,'GS ID')"
+										onClick="click_input(this,'GS ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="gsip"
+										value="<?php if($gsip){ echo $gsip;}else{ echo 'GS IP';} ?>"
+										onBlur="blur_input(this,'GS IP')"
+										onClick="click_input(this,'GS IP')"></td>
+									<td>
+										<button class="btn btn-success"
+											onClick="javascript:$('#searchform').submit();">
+											<i class="icon-search icon-white"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i>
+						</span>
+						<h5>存档列表</h5>
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th>序列ID</th>
+										<th>序列名</th>
+										<th>账户ID</th>
+										<th>游戏ID</th>
+										<th>游戏</th>
+										<th>序列创建时间</th>
+										<th>序列删除时间</th>
+										<th>存档ID</th>
+										<th>GS ID</th>
+										<th>GS IP</th>
+										<th>父存档</th>
+										<th>存档创建时间</th>
+										<th>设备ID</th>
+										<th>上传时间</th>
+										<th>累计游戏时间时间</th>
+										<th>游戏模式</th>
+										<th>GS汇报时间</th>
+										<th>存档字节数</th>
+										<th>存档MD5</th>
+										<th>被继承次数</th>
+										<th>存档删除时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="gamesaves" item="row">
+									<tr>
+										<td>{$row.serial_id}</td>
+										<td>{$row.name}</td>
+										<td>{$row.account_id}</td>
+										<td>{$row.game_id}</td>
+										<td>{$row.game_name}</td>
+										<td>{$row.create_time}</td>
+										<td>{$row.delete_time}</td>
+										<td>{$row.save_id}</td>
+										<td>{$row.gs_id}</td>
+										<td>{$row.gs_ip}</td>
+										<td>{$row.derived_from}</td>
+										<td>{$row.create_time_s}</td>
+										<td>{$row.device_uuid}</td>
+										<td>{$row.upload_time}</td>
+										<td>{$row.total_play_time}</td>
+										<td>{$row.game_mode}</td>
+										<td>{$row.gs_report_time}</td>
+										<td>{$row.compressed_size}</td>
+										<td>{$row.compressed_md5}</td>
+										<td>{$row.derived_count}</td>
+										<td>{$row.delete_time_s}</td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(2400);
+	});
+	$(window).resize(function(e) {
+		tableresize(2400);
+	});
+</script>
+<include file="Public/footer" />

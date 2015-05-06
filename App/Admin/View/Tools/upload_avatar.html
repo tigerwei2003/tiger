@@ -1,0 +1,114 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>头像上传</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Tools/upload_avatar')}"
+			class="current">头像上传</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>头像上传</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post"
+							action="{:U('Tools/upload_avatar')}" name="basic_validate"
+							id="basic_validate" enctype="multipart/form-data" novalidate
+							onsubmit="javascript:return checkForm()" >
+						<input type="hidden" name="dosubmit" value="1" />
+						<div class="control-group">
+							<label class="control-label">类型</label>
+							<div class="controls">
+								<select name="info[type]" id="type" onchange="check()">
+									<option value="1">用户头像</option>
+									<option value="2">用户昵称</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group" id="name">
+							<label class="control-label">用户昵称</label>
+							<div class="controls">
+								<input type="text" name="info[name]" value="" />
+							</div>
+						</div>
+						<div class="control-group game_save_compressed_md5" id="file">
+							<label class="control-label">请选择一个图片文件：</label>
+							<div class="controls">
+								<input type="file" name="upload" id="files" value="请选择文件"
+									onblur="check_files()" /><br> <span id='up_file'></span>
+							</div>
+						</div>
+						<div class="form-actions">
+							<input type="submit" value="上传" class="btn btn-primary" />
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script src="__HTML__/js/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(400);
+
+		check();
+	});
+	$(window).resize(function(e) {
+		tableresize(400);
+	});
+</script>
+<script type="text/javascript">
+	//验证存档文件类型	
+	function check_files() {
+		var gamesave = $("#files").val();
+		//文件类型  图片 格式
+		var regfile = /^.+\.(jpg|png|bmp|jpeg)$/;
+		if (gamesave == "") {
+			$('#up_file').html("<font color='red'>请选择一个存档文件</font>");
+			flag4 = 0;
+			return false;
+		}
+		if (!regfile.test(gamesave)) {
+			$('#up_file').html(
+					"<font color='red'>文件格式必须为.(jpg|png|bmp|jpeg)！</font>");
+			flag4 = 0;
+			return false;
+		}
+		$('#up_file').html("<font color='green'>√</font>");
+		flag4 = 1;
+		return true;
+	}
+
+	function check() {
+		$("#name").show();
+		$("#file").show();
+		var type = $("#type").val();
+		if (type == '1')
+			$("#name").hide();
+		else
+			$("#file").hide();
+	}
+</script>
+<include file="Public/footer" />

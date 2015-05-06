@@ -1,0 +1,98 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+	
+		<div id="content">
+			<div id="content-header">
+				<h1>渠道列表</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('System/pid')}" class="current">渠道列表</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+            
+			<div class="container-fluid">
+                
+				<div class="row-fluid">
+					<div class="span12">  
+                    	<div class="sousuo">
+                        <form class="form-horizontal" action="" method="post" id="searchform">
+                
+                        <table rules="none" border="0">
+                            <tbody>
+                            	<tr>
+                                    <td class="searchselect">
+                                    <select name="pid">
+                                        <option value="">全渠道</option>
+                                        <volist name='pid_list' id="vo">
+										<option value="{$vo.pid}" <?php if($pid == $vo['pid']){ echo 'selected';} ?>>{$vo.pid}</option>
+										</volist>
+                                    </select>
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-success" onClick="javascript:$('#searchform').submit();"><i class="icon-search icon-white"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                        </form>
+                        </div>
+                        <div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="icon-th"></i>
+								</span>
+								<h5>渠道列表</h5>
+								<a href="{:U('System/pid_add')}"><span class="label btn-success"><i class="icon-plus icon-white"></i>新增渠道</span></a>
+							</div>
+							<div class="widget-content">
+                            	<div class="cont_max" id="table_sort">
+								<table class="table table-bordered table-striped with-check" id="maxtable" >
+									<thead>
+										<tr>
+                                            <th width="550">渠道</th>
+                                             <th width="25">设置游戏黑名单</th>
+                                            <th width="10">删除</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    <foreach name="list" item="row">
+										<tr>
+                                            <td>{$row.pid}</td>
+                                            <td class="taskOptions">
+											<a href="javascript:;" onClick="javascript:window.location.href='{:U('Pid/set_deny_game',array('pid'=>$row['pid']))}';" class="tip-top" data-original-title="Update" title="Update"><i class="icon-pencil"></i></a>
+											</td>
+											<td class="taskOptions">
+											<a href="javascript:;" onClick="javascript:window.location.href='{:U('System/pid_del',array('pid'=>$row['pid']))}';" class="tip-top" data-original-title="Update" title="Update"><i class="icon-remove"></i></a>
+											</td>
+										</tr>
+                                    </foreach>										
+									</tbody>
+								</table>	
+                                </div>
+                                <div class="pagination" style="text-align:center">{$pages}</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div>
+                
+			</div>
+		</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(1400);
+	});
+	$(window).resize(function(e){
+		tableresize(1400);
+	});
+
+</script>       
+<include file="Public/footer" />

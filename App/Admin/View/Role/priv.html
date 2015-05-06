@@ -1,0 +1,191 @@
+<include file="Public/header" />
+<script type="text/javascript">
+		function check(menuid)
+		{
+			var c='.cc'+menuid;
+			if($(c).css("display")=="none")
+			{
+				$(c).css("display","");;
+			}
+
+		}
+			
+		</script>
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>节点管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{$index_url}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{$node_index}" class="current">节点管理</a>
+		<a href="javascript:;" onClick="javascript:history.go(-1);"
+			class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i>
+			返回</a>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row-fluid">
+			<div class="span12">
+
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i>
+						</span>
+						<h5>节点管理</h5>
+						<a href="{$add_url}"><span class="label btn-success"><i
+								class="icon-plus icon-white"></i> 添加顶级菜单</span></a>
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<form name="myform" id="myform" action="{:U('Role/priv')}"
+								method="post">
+								<input type="hidden" name="role_id" value="{$role_id}" /> <input
+									type="hidden" name="dosubmit" value="1" />
+								<table class="table table-bordered table-striped with-check"
+									id="maxtable">
+									<thead>
+										<tr>
+
+											<th width="160">URL</th>
+											<th width="">节点名称</th>
+											<th width="80">类型</th>
+											<th width="80">状态</th>
+											<th width="40" class="taskOptions">权限状态</th>
+
+										</tr>
+									</thead>
+									<empty name="menu_group_id_str">
+									<tbody>
+										<volist name="parent_menu_arr['parent']" id="vo">
+										<tr id="quanxian{$vo['id']}" bgcolor="#ccc">
+											<td>&nbsp;<a href=''>{$vo['url']}</a></td>
+											<td>{$vo['title']}</td>
+											<td>顶级菜单</td>
+											<td>{$vo.status}</td>
+											<td align=center><input type=checkbox id="quanxian"
+												name="quanxian[]" value="{$vo['id']}" onclick="check({$vo['id']})"></td>
+										</tr>
+										<volist name="parent_menu_arr['child'][$vo['id']]" id="voo">
+										<tr class="cc{$vo['id']}" style="display:none">
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;|-<a href=''>{$voo['url']}</a></td>
+											<td width=20%>&nbsp;<a href=''>{$voo['title']}</a></td>
+											<td width=10% align=center>&nbsp;<a href=''>二级菜单</a></td>
+
+											<td>{$vo.status}</td>
+											<td align=center><input type=checkbox id="quanxian"
+												name="quanxian[]" value="{$voo['id']}" onclick="check({$voo['id']})"></td>
+
+										</tr>
+
+										<volist name="parent_menu_arr['func'][$voo['id']]" id="vooo">
+										<tr class="cc{$vo['id']}" style="display:none">
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-<a
+												href=''>{$vooo['url']}</a></td>
+											<td width=20%>&nbsp;<a href=''>{$vooo['title']}</a></td>
+											<td width=10% align=center>&nbsp;<a href=''>功能点</a></td>
+											<td>{$vooo.status}</td>
+											<td align=center><input type=checkbox id="quanxian"
+												name="quanxian[]" value="{$vooo['id']}"></td>
+
+										</tr>
+										</volist> </volist> </volist>
+									</tbody>
+									<else />
+									<tbody>
+										<volist name="parent_menu_arr['parent']" id="vo">
+										<tr id="quanxian{$vo['id']}" bgcolor="#ccc">
+											<td>&nbsp;<a href=''>{$vo['url']}</a></td>
+											<td>{$vo['title']}</td>
+											<td>顶级菜单</td>
+											<td>{$vo.status}</td>
+											<in name="vo.id" value="$menu_group_id_str">
+											<td width=20% align=center><input type=checkbox
+												id="quanxian{$vo['id']}" name="quanxian[]"
+												value="{$vo['id']}" onclick="check({$vo['id']})" checked></td>
+											<else />
+											<td width=20% align=center><input type=checkbox
+												id="quanxian{$vo['id']}" name="quanxian[]"
+												value="{$vo['id']}" onclick="check({$vo['id']})"></td>
+											</in>
+										</tr>
+										<volist name="parent_menu_arr['child'][$vo['id']]" id="voo">
+										<tr class="cc{$vo['id']}" style="display:">
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;|-<a href=''>{$voo['url']}</a></td>
+											<td width=20%>&nbsp;<a href=''>{$voo['title']}</a></td>
+											<td width=10% align=center>&nbsp;<a href=''>二级菜单</a></td>
+
+											<td>{$voo.status}</td>
+											<in name="voo.id" value="$menu_group_id_str">
+											<td width=20% align=center><input type=checkbox
+												id="quanxian{$voo['id']}" name="quanxian[]"
+												value="{$voo['id']}" onclick="check({$voo['id']})"
+												checked></td>
+											<else />
+											<td width=20% align=center><input type=checkbox
+												id="quanxian{$voo['id']}" name="quanxian[]"
+												value="{$voo['id']}" onclick="check({$voo['id']})"></td>
+											</in>
+										</tr>
+
+										<volist name="parent_menu_arr['func'][$voo['id']]" id="vooo">
+										<tr class="cc{$vo['id']}" style="display:">
+											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-<a
+												href=''>{$vooo['url']}</a></td>
+											<td width=20%>&nbsp;<a href=''>{$vooo['title']}</a></td>
+											<td width=10% align=center>&nbsp;<a href=''>功能点</a></td>
+											<td>{$vooo.status}</td>
+											<in name="vooo.id" value="$menu_group_id_str">
+											<td width=20% align=center><input type=checkbox
+												id="quanxian{$vooo['id']}" name="quanxian[]"
+												value="{$vooo['id']}" 
+												checked></td>
+											<else />
+											<td width=20% align=center><input type=checkbox
+												id="quanxian{$vooo['id']}" name="quanxian[]"
+												value="{$vooo['id']}"></td>
+											</in>
+										</tr>
+										</volist> </volist> </volist>
+									</tbody>
+
+									</empty>
+								</table>
+								<div class="form-actions">
+									<input type="submit" value="保存" class="btn btn-primary" />
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(900);
+	});
+	$(window).resize(function(e){
+		tableresize(900);
+	});
+</script>
+
+<div id="showcontent"></div>
+
+<include file="public/footer" />

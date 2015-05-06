@@ -1,0 +1,48 @@
+
+	</body>
+</html>
+<script src="__HTML__/js/jquery.gritter.min.js"></script>
+<script type="text/javascript">
+function newmessage(){
+
+	art.dialog({
+		time: 2,
+		lock: true,
+		fixed: true,
+		title: '提示',
+		content: '此模块现在还正在开发中……',
+		icon: 'warning'
+	});
+	
+}
+
+function artmessage(msg,type){
+	art.dialog({
+		time: 2,
+		lock: true,
+		fixed: true,
+		title: '提示',
+		content: msg,
+		icon: type
+	});
+	
+}
+
+function showcontent(fileurl,filetitle){
+
+	art.dialog.open(fileurl,{
+		width:344,
+		height:480,
+		title:'预览',
+		lock:true
+	});
+	
+}
+function ConfirmDel(url) {
+	if (confirm("真的要删除吗？")){
+		window.location.href=url;
+	}else{
+		return false;
+	}
+}
+</script>

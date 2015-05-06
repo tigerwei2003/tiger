@@ -1,0 +1,149 @@
+<include file="Public/header" />
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+<div id="content">
+	<div id="content-header">
+		<h1>游戏时间记录</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Record/gametimes')}"
+			class="current">游戏时间记录</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="sousuo">
+					<form class="form-horizontal" action="" method="post"
+						id="searchform">
+						<table rules="none" border="0">
+							<tbody>
+								<tr>
+									<td class="searchselect"><select name="game">
+											<option value="">游戏</option>
+											<foreach name="gamelist" item="gm">
+											<option <php> if($game==$gm['game_id']){ echo
+												'selected';} </php> value="{$gm.game_id}">{$gm.game_id}:{$gm.game_name}</option>
+											</foreach>
+									</select></td>
+									<td style="padding-right: 0"><input type="text"
+										name="account"
+										value="<php> if($account){ echo $account;}else{ echo '账户';} </php>"
+										onBlur="blur_input(this,'账户')"
+										onClick="click_input(this,'账户')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="device"
+										value="<php> if($device){ echo $device;}else{ echo '设备';} </php>"
+										onBlur="blur_input(this,'设备')"
+										onClick="click_input(this,'设备')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="gs_ip"
+										value="<php> if($gs_ip){ echo $gs_ip;}else{ echo 'GSIP';} </php>"
+										onBlur="blur_input(this,'GSIP')"
+										onClick="click_input(this,'GSIP')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="gs_id"
+										value="<php> if($gs_id){ echo $gs_id;}else{ echo 'GSID';} </php>"
+										onBlur="blur_input(this,'GSID')"
+										onClick="click_input(this,'GSID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="end_code"
+										value="<php> if($end_code){ echo $end_code;}else{ echo '结束代码';} </php>"
+										onBlur="blur_input(this,'结束代码')"
+										onClick="click_input(this,'结束代码')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="startdate"
+										value="<php> if($startdate){ echo $startdate;}else{ echo '开始日期';} </php>"
+										onBlur="blur_input(this,'开始日期')"
+										onClick="click_input(this,'开始日期')"></td>
+									<td>-</td>
+									<td><input type="text" name="enddate"
+										value="<php> if($enddate){ echo $enddate;}else{ echo '结束日期';} </php>"
+										onBlur="blur_input(this,'结束日期')"
+										onClick="click_input(this,'结束日期')"></td>
+									<td>
+										<button class="btn btn-success"
+											onClick="javascript:$('#searchform').submit();">
+											<i class="icon-search icon-white"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-leaf"></i></span>
+						<h5>游戏时间记录</h5>
+
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th width="">账户</th>
+										<th width="300">设备</th>
+										<th width="">游戏</th>
+										<th width="">GS IP</th>
+										<th width="">GS ID</th>
+										<th width="">线上GS</th>
+										<th width="">开始游戏</th>
+										<th width="">最近一次汇报</th>
+										<th width="">结束代码</th>
+										<th width="">游戏时长</th>
+										<th width="">创建时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="gametimes" item="row">
+									<tr>
+										<td>{$row.account_id}</td>
+										<td>{$row.device_uuid}</td>
+										<td>{$row.game_name}</td>
+										<td>{$row.gs_ip}</td>
+										<td>{$row.gs_id}</td>
+										<td>{$row.is_online_gs}</td>
+										<td><if condition="$row['gs_start_time']">{$row.gs_start_time|date='Y-m-d
+											H:i:s',###}</if></td>
+										<td><if condition="$row['gs_last_report_time']">{$row.gs_last_report_time|date='Y-m-d
+											H:i:s',###}</if></td>
+										<td>{$row.end_code}</td>
+										<td>{$row['gs_last_report_time'] - $row['gs_start_time']}</td>
+										<td><if condition="$row['create_time']">{$row.create_time|date='Y-m-d
+											H:i:s',###}</if></td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$pages}</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(1600);
+	});
+	$(window).resize(function(e) {
+		tableresize(1600);
+	});
+</script>
+<include file="Public/footer" />

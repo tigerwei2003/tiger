@@ -1,0 +1,103 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>角色管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Role/index')}"
+			class="current">角色管理</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i>
+						</span>
+						<h5>角色管理</h5>
+						<a href="{:U('Role/add')}"><span class="label btn-success"><i
+								class="icon-plus icon-white"></i> 创建角色</span></a>
+					</div>
+					<div class="widget-content">
+						<div class="cont_max">
+							<table class="table table-bordered table-striped with-check"
+								id="maxtable">
+								<thead>
+									<tr>
+										<th width="5%">ID</th>
+										<th width="20%">角色名</th>
+										<th>角色描述</th>
+										<th width="40">状态</th>
+										<th width="40" class="taskOptions">修改</th>
+										<th width="40" class="taskOptions">权限</th>
+										<th width="40" class="taskOptions">删除</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="list" item="row">
+									<tr>
+										<td>{$row.id}</td>
+										<td>{$row.name}</td>
+										<td>{$row.remark}</td>
+										<td><if condition="$row['status']==1">启用<else />停用</if></td>
+
+										<td class="taskOptions"><a href="javascript:;"
+											onClick="javascript:window.location.href='{:U('Role/modify',array('id'=>$row['id']))}';"
+											class="tip-top" data-original-title="Update" title="Update"><i
+												class="icon-pencil"></i></a></td>
+
+
+										<td class="taskOptions"><a href="javascript:;"
+											onClick="javascript:window.location.href='{:U('Role/priv',array('roleid'=>$row['id']))}';"
+											class="tip-top" data-original-title="Games" title="Games"><i
+												class="icon-list-alt"></i></a></td>
+
+
+										<td class="taskOptions"><a href="javascript:;"
+											onClick="javascript:ConfirmDel('{:U('Role/delete',array('id'=>$row['id']))}');"
+											class="tip-top" data-original-title="Delete" title="Delete"><i
+												class="icon-remove"></i></a></td>
+
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+						<div class="pagination" style="text-align: center">{$page}</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		tableresize(900);
+	});
+	$(window).resize(function(e){
+		tableresize(900);
+	});
+</script>
+
+<div id="showcontent"></div>
+
+<include file="Public/footer" />

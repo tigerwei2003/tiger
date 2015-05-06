@@ -1,0 +1,89 @@
+<include file="Public/header" />
+<script type="text/javascript"></script>
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+<div id="content">
+	<div id="content-header">
+		<h1>后台管理</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Task/index')}"
+			class="current">任务列表</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-align-justify"></i>
+						</span>
+						<h5>编辑任务</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post" action=""
+							name="basic_validate" id="basic_validate"
+							enctype="multipart/form-data" novalidate>
+							<input type="hidden" name="dosubmit" value="1" />
+							<input type="hidden" name="id" value="{$info.id}" />
+							<volist name="input_arr" id="vo">
+							<if condition="$key eq 'type_id'">
+							<div class="control-group">
+							<label class="control-label">任务类型：</label>
+							<div class="controls">
+								<select name="type_id">
+									<foreach name="task_type_arr" item="v">
+									<if condition="$v['id'] eq $info['type_id']">
+									<option value="{$v.id}" selected>{$v.type_name}</option>
+									<else />
+									<option value="{$v.id}">{$v.type_name}</option>
+									</if>
+									
+									</foreach>
+								</select>
+							</div>
+						</div>
+						<elseif condition="$key eq 'status'"/>
+						<div class="control-group">
+							<label class="control-label">状态：</label>
+							<div class="controls">
+								<select name="type_id">
+									<foreach name="status_arr" item="v" key="k">
+									<if condition="$k eq $info['status']">
+									<option value="{$k}" selected>{$v}</option>
+									<else />
+									<option value="{$k}">{$v}</option>
+									</if>
+									
+									</foreach>
+								</select>
+							</div>
+						</div>
+							<else />
+							<div class="control-group">
+								<label class="control-label">{$vo}：</label>
+								<div class="controls">
+									<input type="text" name="{$key}" value="{$info[$key]}" />
+								</div>
+							</div>
+							</if>
+							
+							</volist>
+						
+
+							<div class="form-actions">
+								<input type="submit" value="保存" class="btn btn-primary" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<include file="Public/footer" />

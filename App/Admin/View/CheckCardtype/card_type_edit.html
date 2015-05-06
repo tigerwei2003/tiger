@@ -1,0 +1,141 @@
+<include file="Public/header" />
+ <script type="text/javascript">
+	$(document).ready(function(){
+		$.formValidator.initConfig({autotip:true,formid:"basic_validate",onerror:function(msg){}});
+		$("#card_type_name").formValidator({onshow:"请输入类别名称",onfocus:"类别名称不能为空"}).inputValidator({min:1,onerror:"请输入类别名称！"});
+		$("#point_type").formValidator({onshow:"请选择游戏点分类",onfocus:"请选择游戏点分类"}).inputValidator({min:0,onerror:"请选择游戏点分类！"});
+		$("#source").formValidator({onshow:"请输入备注",onfocus:"备注不能为空"}).inputValidator({min:1,onerror:"请选择备注！"});
+	});
+</script>
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+		<div id="content">
+			<div id="content-header">
+				<h1>多选卡类别管理</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('Checkcardtype/Index')}" class="current">多选卡类别管理</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+                        
+						<div class="widget-box">
+							<div class="widget-title">
+                            	<span class="icon"><i class="icon-pencil"></i></span>
+								<h5>编辑多选卡分类</h5>
+                               
+                                <a href="{:U('Checkcardtype/Index')}"><span class="label btn-primary"><i class=" icon-list-alt icon-white"></i> 多选卡分类管理</span></a>
+                               
+							</div>
+							<div class="widget-content nopadding">
+								<form class="form-horizontal" method="post" name="basic_validate" id="basic_validate" enctype="multipart/form-data" novalidate >
+                                <input type="hidden" name="dosubmit" value="1" />
+                                <input type="hidden" name="card_id" value="{$typeinfo.id}" />
+                                <input type="hidden" name="id_string" value="{$typeinfo.ids}" />
+                                    <if condition="!$row">
+                                    <div class="control-group">
+                                        <label class="control-label">类别名称</label>
+                                        <div class="controls">
+                                            <input type="text" value="{$typeinfo.type_name}" name="card_type_name" id="card_type_name" style="float: left;"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">游戏点分类</label>
+                                        <div class="controls">
+                                        	<?php if(!$typeinfo['id']) {?>
+                                                <select name="point_type" id="point_type">
+                                            	<foreach name="pointtype" item="row">                                        			<option value="{$row['id']}" <?php if($typeinfo['point_type']==$row['id']){ echo 'selected';}?>>{$row.name}</option>
+                                           		</foreach>
+                                                </select>
+                                                <?php } else { ?>
+                                                <select name="point_type" id="point_type">
+                                                	<option value="{$pointtype['id']}">{$pointtype.name}</option>
+                                                </select>
+                                                <span style="margin-left:10px;height:22px;line-height:20px;color:#f00;font-size:12px;">游戏点分类不允许编辑</span>
+                                                <?php } ?>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    </if>
+                                    <div class="control-group">
+                            	<label class="control-label">关联计费点：</label>
+                                <div class="controls">
+                                	<div class="game_names">
+                                    	<ul  id="game_type_show">
+                                        <foreach name="gamepack" item="row">                                        
+                                        	<li><label class="lleft"><input type="checkbox" name="game_id[]" id="game_id[]" value="{$row.id}" <?php if(in_array($row['id'],$ids)) echo 'checked'; ?>></label> <label class="lright">{$row.name}</label></li>
+                                        </foreach>
+                                        </ul>
+                                    </div>
+                                </div>
+                              </div>
+                                    <div class="control-group">
+                                        <label class="control-label">备注</label>
+                                        <div class="controls">
+                                            <input type="text" name="source" value="{$typeinfo.spare}" id="source"/>
+                                        </div>
+                                    </div>
+                                 <!--   <div class="control-group">
+                                        <label class="control-label">是否需要激活</label>
+                                        <div class="controls">
+                                        	<select name="info[valid]" id="status">
+                                                <option value="0" <?php if($row['valid']=='0'){ echo 'selected';}?> >需要激活
+                                                <option value="1" <?php if($row['valid']=='1'){ echo 'selected';}?> >免激活
+                                            </select>
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="form-actions">
+                                        <input type="submit" value="保存" class="btn btn-primary" />
+                                    </div>
+                                </form>
+							</div>
+						</div>			
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+            
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		$('.datepicker').datepicker();
+		$('#point_type').change(function(){ 
+			var cid = $(this).children('option:selected').val(); 
+			var url = "{:U('Checkcardtype/GetTypePoint')}"+"&cid="+cid; 
+			
+			$.getJSON(url,function(data){ 
+				if(data) { 
+					var html = '';
+					$('#game_type_show').html(html);
+					for(var i=0;i<data.length;i ++) {
+						checked = '';
+						
+						html += '<li>';
+						html += '<label class="lleft">';
+						html += '<input type="checkbox" name="game_id[]" value="'+data[i]['id']+'" >';
+						html += '</label>';
+						html += '<label class="lright">';
+						html += data[i]['name'];
+						html += '</label>';
+						html += '</li>';
+					}
+				}
+    			$('#game_type_show').html(html);
+  			});
+		});
+	});
+</script>
+<include file="Public/footer" />

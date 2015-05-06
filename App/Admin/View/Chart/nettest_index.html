@@ -1,0 +1,119 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+	
+		<div id="content">
+			<div id="content-header">
+				<h1>测速列表</h1>
+			</div>
+			<div id="breadcrumb">
+				<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 后台首页</a>
+				<a href="{:U('Chart/nettest')}" class="current">测速列表</a>
+                <a href="javascript:;" onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i class="icon-share-alt"></i> 返回</a>
+			</div>
+            
+			<div class="container-fluid">
+            
+				<div class="row-fluid">
+					<div class="span12">
+    	                <div class="sousuo">
+                        <form class="form-horizontal" action="" method="post" id="searchform">
+                     
+                        <table rules="none" border="0">
+                            <tbody>
+                            	<tr>
+                                	<td class="searchselect">
+                                    <select name="searchtype">
+                                        <option value="">搜索类型</option>
+                                        <option value="device_uuid" <php>if($searchtype=='device_uuid'){ echo 'selected'; }</php> >设备UUID</option>
+                                        <option value="stsip" <php>if($searchtype=='stsip'){ echo 'selected'; }</php>>测速服务器IP</option>
+                                    </select>
+                                    </td>
+                                    <td style="padding-right:0">
+                                    <input type="text" name="search"  value="{$search}"/>
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-success" onClick="javascript:$('#searchform').submit();"><i class="icon-search icon-white"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>    
+                        </form>
+                        </div>
+                        
+                        <div class="widget-box">
+							<div class="widget-title">
+								<span class="icon"><i class="icon-leaf"></i></span>
+								<h5>测速列表</h5>
+                                <!--
+                                <a href="{:U('Export/gamepack')}"><span class="label btn-warning"><i class=" icon-download-alt icon-white"></i> 导出</span></a>
+                                -->
+							</div>
+							<div class="widget-content">
+                            	<div class="cont_max">
+								<table class="table table-bordered table-striped with-check" id="maxtable">
+									<thead>
+										<tr>
+											<th>编号</th>
+											<th>用户设备UUID</th>
+											<th>用户设备IP</th>
+											<th>用户省份</th>
+											<th>用户运营商</th>
+                                            <th>测速服务器区域</th>
+                                            <th>测速服务器IP</th>
+                                            <th>测速服务器端口</th>
+                                            <th>延迟(以毫秒为单位)</th>
+                                            <th>测速带宽</th>
+                                            <th>测速时间</th>
+										</tr>
+									</thead>
+									<tbody>
+                                    <foreach name="nettestlist" item="row">
+										<tr>
+											<td>{$row.id}</td>
+											<td>{$row.device_uuid}</td>
+											<td>{$row.account_ip}</td>
+											<td>{$row.region}</td>
+											<td>{$row.isp}</td>
+											<td>{$row.name}</td>
+                                            <td>{$row.stsip}</td>
+                                            <td>{$row.stsport}</td>
+                                            <td>{$row.ping}</td>
+                                            <td>{$row.kbps}</td>
+                                            <td>{$row.create_time|date='Y-m-d H:i:s',###}</td>
+										</tr>
+                                    </foreach>										
+									</tbody>
+								</table>
+                                </div>	
+                                <div class="pagination" style="text-align:center">{$pages}</div>	  					
+							</div> 
+						</div>
+                        
+					</div>
+				</div>
+				
+
+				<div class="row-fluid">
+					<div id="footer" class="span12">
+						{:C('SEO_COPYRIGHT')}
+					</div>
+				</div>
+                
+			</div>
+		</div>
+
+
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+<script type="text/javascript">
+	
+	$(document).ready(function(e) {
+		tableresize(900);
+	});
+	$(window).resize(function(e){
+		tableresize(900);
+	});
+</script>
+
+<include file="Public/footer" />

@@ -1,0 +1,369 @@
+<include file="Public/header" />
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						$.formValidator.initConfig({
+							autotip : true,
+							formid : "basic_validate",
+							onerror : function(msg) {
+							}
+						});
+						$("#id").formValidator({
+							onshow : "请输入数字ID",
+							onfocus : "请输入数字ID"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入数字ID！"
+						});
+						$("#name").formValidator({
+							onshow : "游戏名称中文",
+							onfocus : "请输入游戏名称"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入游戏名称！"
+						});
+						$("#name_en").formValidator({
+							onshow : "请输入游戏英文名称",
+							onfocus : "请输入游戏英文名称"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入游戏英文名称！"
+						});
+						$("#status").formValidator({
+							onshow : "状态：默认正常为1",
+							onfocus : "请输入状态"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入状态！"
+						});
+						$("#level")
+								.formValidator(
+										{
+											onshow : "请输入游戏级别",
+											onfocus : "1001-适配有问题；1000-录入新游戏；900-显示和操控没问题；800-服务器没问题；700-运营素材准备完毕；600-部署完毕；500-测试完毕；100-计划上线（可以让玩家看到了）；99-即将上线（玩家可以进入，看游戏的截图、视频，甚至可以开始预订游戏了）；1-90备用，可做考量用户等级的限制；0级，正常上线游戏"
+										});
+						//$("#def_video_width").formValidator({onshow:"视频宽度：街机游戏不确定，大型游戏默认1280",onfocus:"请输入视频宽度"}).inputValidator({min:1,onerror:"请输入视频宽度！"});
+						//$("#def_video_height").formValidator({onshow:"视频高度：街机游戏确定，大型游戏默认720",onfocus:"请输入视频高度"}).inputValidator({min:1,onerror:"请输入视频高度！"});
+						$("#low_bitrate").formValidator({
+							onshow : "流畅码率：街机游戏默认1000，大型游戏默认3000",
+							onfocus : "请输入流畅码率1000~3000"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入流畅码率1000~3000！"
+						});
+						$("#mid_bitrate").formValidator({
+							onshow : "标清码率：街机游戏默认1500，大型游戏默认5000",
+							onfocus : "请输入标清码率1500~5000"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入标清码率1500~5000！"
+						});
+						$("#high_bitrate").formValidator({
+							onshow : "高清码率：街机游戏默认2000，大型游戏默认8000",
+							onfocus : "请输入高清码率2000~8000"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入高清码率2000~8000！"
+						});
+						$("#max_player").formValidator({
+							onshow : "同屏玩家个数：默认1",
+							onfocus : "请输入同屏玩家个数"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入同屏玩家个数！"
+						});
+						//$("#concurrent").formValidator({onshow:"单机最高并发：默认100",onfocus:"请输入单机最高并发"}).inputValidator({min:1,onerror:"请输入单机最高并发！"});
+						$("#cpu_load").formValidator({
+							onshow : "CPU负载：请通过测试确认具体数据，1~1000",
+							onfocus : "请输入CPU负载1~1000"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入CPU负载1~1000！"
+						});
+						$("#gpu_load").formValidator({
+							onshow : "GPU负载：请通过测试确认具体数据，1~1000",
+							onfocus : "请输入GPU负载1~1000"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入GPU负载1~1000！"
+						});
+						//$("#max_occupied_gs_num").formValidator({onshow:"最高占用GS个数：用于控制某个游戏的规模，默认1000",onfocus:"请输入最高占用GS个数"}).inputValidator({min:1,onerror:"请输入最高占用GS个数！"});
+						//$("#expected_joinable_preload_gs_num").formValidator({onshow:"预启动GS个数：一般不用，默认0",onfocus:"请输入预启动GS个数"}).inputValidator({min:1,onerror:"请输入预启动GS个数！"});
+						//$("#prelogin_gs_num").formValidator({onshow:"预登录GS个数：一般不用，默认0",onfocus:"请输入预登录GS个数"}).inputValidator({min:1,onerror:"请输入预登录GS个数！"});
+						//$("#inside_sandbox").formValidator({onshow:"游戏运行在沙盒内还是沙盒外：默认沙盒内1",onfocus:"请输入默认沙盒值"}).inputValidator({min:1,onerror:"请输入默认沙盒值！"});
+						//$("#coin").formValidator({onshow:"G币消耗",onfocus:"请输入G币消耗"}).inputValidator({min:1,onerror:"请输入G币消耗！"});
+						$("#save_enabled").formValidator({
+							onshow : "是否支持存档(0:不支持；1：支持)",
+							onfocus : "是否支持存档(0:不支持；1：支持)"
+						});
+						$("#category").formValidator({
+							onshow : "类别(1:主机游戏；2：街机游戏；3：网络游戏)",
+							onfocus : "请输入类别"
+						}).inputValidator({
+							min : 1,
+							onerror : "请输入类别！"
+						});
+						//$("#uploader").formValidator({onshow:"请输入上传者",onfocus:"请输入请输入上传者"}).inputValidator({min:1,onerror:"请输入请输入上传者！"});
+
+					});
+</script>
+<link rel="stylesheet" href="__HTML__/css/uniform.css" />
+
+<div id="content">
+	<div id="content-header">
+		<h1>编辑游戏</h1>
+	</div>
+	<div id="breadcrumb">
+		<a href="{:U('Index/index')}" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> 后台首页</a> <a href="{:U('Game/index')}"
+			class="current">游戏管理</a> <a href="javascript:;"
+			onClick="javascript:history.go(-1);" class="tip-bottom" id="gotoback"><i
+			class="icon-share-alt"></i> 返回</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-pencil"></i></span>
+						<h5>编辑游戏</h5>
+					 <a
+							href="{:U('Game/index')}"><span class="label btn-primary"><i
+								class=" icon-list-alt icon-white"></i> 游戏管理</span></a> 
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" method="post"
+							action="{:U('Game/add')}" name="basic_validate"
+							id="basic_validate" enctype="multipart/form-data" novalidate >
+						<input type="hidden" name="dosubmit" value="1" /> <input
+							type="hidden" name="editdate" value="{$row.game_id}" />
+						<div class="control-group">
+							<label class="control-label">游戏ID</label>
+							<div class="controls">
+								<input type="text" name="info[game_id]" value="{$row.game_id}"<?php
+								if($row['game_id']){ echo 'readonly'; }else{ echo 'id="id"';} ?>
+								/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">游戏类别</label>
+							<div class="controls">
+								<select name="info[category]">
+									<option value="1"<?php if($game_type_id==1){echo
+										"selected='selected'";}?>>{$game_type.1}</option>
+									<option value="2"<?php if($game_type_id==2){echo
+										"selected='selected'";}?>>{$game_type.2}</option>
+									<option value="3"<?php if($game_type_id==3){echo
+										"selected='selected'";}?>>{$game_type.3}</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">游戏名称</label>
+							<div class="controls">
+								<input type="text" name="info[game_name]"
+									value="{$row.game_name}" id="name" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">游戏英文名称</label>
+							<div class="controls">
+								<input type="text" name="info[game_name_en]"
+									value="{$row.game_name_en}" id="name_en" />
+							</div>
+						</div>
+						<if condition="$row['game_id'] eq true">
+						<!-- 游戏主图上传按钮start -->
+						<div class="control-group">
+							<label class="control-label">标题图片</label>
+							<div class="controls">{$upload_title_str}</div>
+						</div>
+						<!-- 游戏主图上传按钮 end-->
+						<!-- 游戏套图上传按钮start -->
+						<div class="control-group">
+							<label class="control-label">游戏截图（高清大图）</label>
+							<div class="controls">{$upload_pics_str}</div>
+						</div>
+						<!-- 游戏套图上传按钮 end-->
+						<!-- 游戏控制图上传按钮start -->
+						<div class="control-group">
+							<label class="control-label">手柄操控示意图</label>
+							<div class="controls">{$upload_control_str}</div>
+						</div>
+						<!-- 游戏控制图上传 end-->
+						</if>
+						<div class="control-group">
+							<label class="control-label">状态</label>
+							<div class="controls">
+								<input type="text" name="info[status]" value="{$row.status}"
+									id="status" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">级别</label>
+							<div class="controls">
+								<input type="text" name="info[level]" value="{$row.level}"
+									id="level" />
+							</div>
+						</div>
+						<!--
+                                    <div class="control-group">
+                                        <label class="control-label">视频宽度</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[def_video_width]" value="{$row.def_video_width}" id="def_video_width"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">视频高度</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[def_video_height]" value="{$row.def_video_height}" id="def_video_height"/>
+                                        </div>
+                                    </div>
+									-->
+						<div class="control-group">
+							<label class="control-label">流畅码率kbps</label>
+							<div class="controls">
+								<input type="text" name="info[low_bitrate]"
+									value="{$row.low_bitrate}" id="low_bitrate" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">标清</label>
+							<div class="controls">
+								<input type="text" name="info[mid_bitrate]"
+									value="{$row.mid_bitrate}" id="mid_bitrate" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">高清</label>
+							<div class="controls">
+								<input type="text" name="info[high_bitrate]"
+									value="{$row.high_bitrate}" id="high_bitrate" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">同屏玩家</label>
+							<div class="controls">
+								<input type="text" name="info[max_player]"
+									value="{$row.max_player}" id="max_player" />
+							</div>
+						</div>
+						<!--
+                                    <div class="control-group">
+                                        <label class="control-label">单机并发上限</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[concurrent]" value="{$row.concurrent}" id="concurrent"/>
+                                        </div>
+                                    </div>
+									-->
+						<div class="control-group">
+							<label class="control-label">cpu负载</label>
+							<div class="controls">
+								<input type="text" name="info[cpu_load]" value="{$row.cpu_load}"
+									id="cpu_load" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">gpu负载</label>
+							<div class="controls">
+								<input type="text" name="info[gpu_load]" value="{$row.gpu_load}"
+									id="gpu_load" />
+							</div>
+						</div>
+						<!--
+                                    <div class="control-group">
+                                        <label class="control-label">GS上限</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[max_occupied_gs_num]" value="{$row.max_occupied_gs_num}" id="max_occupied_gs_num"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">预启动GS</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[expected_joinable_preload_gs_num]" value="{$row.expected_joinable_preload_gs_num}" id="expected_joinable_preload_gs_num"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">预登录GS</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[prelogin_gs_num]" value="{$row.prelogin_gs_num}" id="prelogin_gs_num"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">沙盒内</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[inside_sandbox]" value="{$row.inside_sandbox}" id="inside_sandbox"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">G币消耗</label>
+                                        <div class="controls">
+                                            <input type="text" name="info[coin]" value="{$row.coin}" id="coin"/>
+                                        </div>
+                                    </div>
+                                    -->
+						<div class="control-group">
+							<label class="control-label">试玩时间</label>
+							<div class="controls">
+								<input type="text" name="info[trial_time]"
+									value="{$row.trial_time}" id="trial_time" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">存档支持</label>
+							<div class="controls">
+								<input type="text" name="info[save_enabled]"
+									value="{$row.save_enabled}" id="save_enabled" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">上传者</label>
+							<div class="controls">
+								<input type="text" name="info[uploader]" value="{$row.uploader}"
+									id="uploader" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">游戏介绍</label>
+							<div class="controls">
+								<div style="width: 95%">
+									<?php 
+											echo editor('desc',$row['desc']); 
+											?>
+								</div>
+							</div>
+						</div>
+						<div class="form-actions">
+							<input type="submit" value="保存" class="btn btn-primary" />
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div id="footer" class="span12">{:C('SEO_COPYRIGHT')}</div>
+		</div>
+	</div>
+</div>
+<script src="__HTML__/js/jquery.uniform.js"></script>
+<script src="__HTML__/js/unicorn.tables.js"></script>
+
+<script>
+	//解决添加的时候上传按钮的param_field的值为-1（即添加的时候没有获取到唯一的标识）
+	$("#id").keyup(
+			function() {
+				var replace_val = null;
+				replace_val = $("#id").val();
+				$(".sim_add").each(
+						function() {
+							var modify_str = $(this).attr("onclick").replace(
+									/param_field=-?\d*/g,
+									'param_field=' + replace_val);
+							$(this).attr("onclick", modify_str);
+						});
+			});
+</script>
+
+<include file="Public/footer" />
