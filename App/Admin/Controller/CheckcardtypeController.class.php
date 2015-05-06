@@ -83,7 +83,7 @@ class CheckCardtypeController extends CardbaseController {
 		
 		@extract($game_info);
 		unset($game_info);   //释放资源
-			
+		
 		$ser_game = serialize($gamers);
 		$db = M();
 		//更新类别表

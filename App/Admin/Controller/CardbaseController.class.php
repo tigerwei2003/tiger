@@ -43,11 +43,12 @@ abstract class CardbaseController extends BaseController {
 				if(!$this->Func(self::INSERT)) {
 					$this->error('添加失败');
 				}
-			} else {
+			} else { 
 				if(!$this->Func(self::UPDATE)) {
 					$this->error('编辑失败');
 				}
 			}
+			$this->success('保存成功！',$url);
 		} else {
 			$this->Func(self::GET_EDIT);
 		}
