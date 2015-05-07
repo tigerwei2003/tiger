@@ -33,7 +33,7 @@ class View {
      * @param mixed $name
      * @param mixed $value
      */
-    public function assign($name,$value=''){ 
+    public function assign($name,$value=''){
         if(is_array($name)) {
             $this->tVar   =  array_merge($this->tVar,$name);
         }else {
@@ -247,7 +247,7 @@ class View {
         if(!$tmplPath){ 
             // 定义TMPL_PATH 则改变全局的视图目录到模块之外
             $tmplPath   =   defined('TMPL_PATH')? TMPL_PATH.$module.'/' : APP_PATH.$module.'/'.C('DEFAULT_V_LAYER').'/';
-        } 
+        }
         return $tmplPath.$theme;
     }
 

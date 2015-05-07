@@ -114,18 +114,20 @@ class AnonyController extends BaseController
             $device=$m->where("device_uuid='{$deviceid}'")->find();
             if(!$device)
             {
-                return $this->respond(-102,"Without this device");
+                return $this->respond(-102,"no such this device");
             }
             // 硬件汇报接口
             $hardware=I('hardware','');
             $product=I('product','');
             $model=I('model','');
             $manu=I('manu','');
+            $camera=I('camera',0);
             $data=array(
                 'android_hardware'=>$hardware,
                 'android_product'=>$product,
                 'android_model'=>$model,
                 'android_manu'=>$manu,
+                'camera'=>$camera,
                 'android_display'=>I('display',''),
                 'user_agent'=>I('ua','')
             );
@@ -136,19 +138,35 @@ class AnonyController extends BaseController
                 $data['type']=$type['type'];
                 $data['model']=$type['device_name'];
             }
-            $exist=$m->where($data)->find();
-            if(!$exist)
-            {
-                $result=$m->where("device_uuid='{$deviceid}'")->save($data);
-                if($result === false)
-                {
-                    return $this->respond(-101,"SQL error.");
-                } 
-            }
+			$result=$m->where("device_uuid='{$deviceid}'")->save($data);
+			if($result === false)
+			{
+				return $this->respond(-101,"SQL error.");
+			}
         }
         else if($type=='gsmfail')
         {
             return $this->respond(-101,"gsmfail");
+        }
+        else if($type=='game')
+        {
+            $m=M('device');
+            //判断设备是否存在在设备表中
+            $device=$m->where("device_uuid='{$deviceid}'")->find();
+            if(!$device)
+            {
+                return $this->respond(-102,"no such this device");
+            }
+            $gameid=I('gameid',0);
+            $gamepad=I('gamepad',0);
+            $keyboard=I('keyboard',0);
+            $mouse=I('mouse',0);
+            $data=array('controller'=>$gamepad);
+			$result=$m->where("device_uuid='{$deviceid}'")->save($data);
+			if($result === false)
+			{
+				return $this->respond(-101,"SQL error.");
+			}
         }
         else
         {

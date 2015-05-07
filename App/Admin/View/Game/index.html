@@ -218,7 +218,7 @@
 		}
 	
 	var fields = ["game_id","category","game_name","status","level","coin","save_enabled","low_bitrate","mid_bitrate","high_bitrate","max_player","cpu_load","gpu_load","uploader"];
-	var request_url="op.php?m=System&a=games";
+	var request_url="{:U('Game/index')}";
 	for(i=0;i<fields.length;i++){
 		var field = fields[i];
 		create_sort_obj(i,request_url,field);

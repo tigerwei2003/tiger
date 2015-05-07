@@ -36,7 +36,7 @@ class ChartController extends BaseController
 		//每日统计详细
 		$page = new \Think\Page($db->count(), 15);
 		$this->pages = $page->show();
-		$this->datalist = $db->field("*, daily_play_time/daily_active_user as daily_average_time")->order('date DESC')->limit($page->firstRow.','.$page->listRows)->select();
+		$this->datalist = $db->field("*, FLOOR(daily_play_time/daily_active_user) as daily_average_time")->order('date DESC')->limit($page->firstRow.','.$page->listRows)->select();
 		$this->display('index');
 	}
 

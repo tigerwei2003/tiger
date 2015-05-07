@@ -61,12 +61,17 @@ function filter_nickname($nickname){
 	$memcache_key='sensitive_list';
 	$sensitive_list = S($memcache_key);
 	if( !$sensitive_list ){
-		$file = C('REAL_WWW_ROOT').'/sensitive.txt';
+		$file = WEB_ROOT.'/sensitive.txt';
 		$content = file_get_contents($file);
 		$sensitive_list = explode("\r\n", $content);
+		if (count($sensitive_list) == 0) {
+			$sensitive_list = explode("\r", $content);
+		}
 		S($memcache_key, $sensitive_list);
 	}
 	foreach( $sensitive_list as $val){
+		if ($val == "")
+			continue;
 		if ( substr_count($nickname, $val ) > 0) {
 			return false;
 		}

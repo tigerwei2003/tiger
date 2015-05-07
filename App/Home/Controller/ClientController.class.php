@@ -863,6 +863,14 @@ class ClientController extends BaseController
 		}
 		else
 			return $this->respond(-106, "没找到当前区域。");
+		
+		/*
+		 * 判断用户级别是否可以使用该区
+		*/
+		if($region_info['level']>$account_info['level'])
+		{
+			return $this->respond(-107, "没有权限使用当前区域");
+		}
 
 		G('end');
 		$e_time=G('begin','end').'s';
@@ -2042,14 +2050,9 @@ class ClientController extends BaseController
 			if (!$data)
 				return $this->respond(-133, "未找到当前账号：".$account_id);
 
-			$data['bean']+=$db_coin[0]['bean'];
-			$data['gift_coin_num']+=$db_coin[0]['coin'];
-			$data['gold']+=$db_coin[0]['gold'];
-
 			$data['bean']+=max(0,$db_coin[0]['bean']);
 			$data['gift_coin_num']+=max(0,$db_coin[0]['coin']);
 			$data['gold']+=max(0,$db_coin[0]['gold']);
-
 
 			$db_account = $account_model->save_data($account_id,$data);
 			if (!$db_account || count($db_account) == 0) {

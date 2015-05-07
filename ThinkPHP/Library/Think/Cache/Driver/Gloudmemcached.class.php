@@ -10,7 +10,6 @@
 // +----------------------------------------------------------------------
 namespace Think\Cache\Driver;
 use Think\Cache;
-
 defined('THINK_PATH') or exit();
 /**
  * Memcached缓存驱动

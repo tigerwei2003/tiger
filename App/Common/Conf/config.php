@@ -23,7 +23,7 @@ return array(
 				'GAMEPACK'=>array('ORIGIN_PATH'=>"gamepack/"), //游戏包的图片存放主文件夹
 		),
 		'DSY_IMG_UPLOAD_DIR' =>'client/pic/',
-		'REAL_WWW_ROOT'=>'/usr/share/nginx/html/gloudapi2/',//服务器的根目录（即DocmentRoot）
+		//'REAL_WWW_ROOT'=>'/usr/share/nginx/html/gloudapi2/',//服务器的根目录（即DocmentRoot）
 		'CDN_DSY_IMG_HOST' =>"http://pic2.51ias.com/",//CDN域名
 		'UPLOAD_DIR' => 'Upload/',
 		'SHOW_PAGE_TRACE'=>false,		
@@ -98,15 +98,13 @@ return array(
 		// 限制只允许大麦盒子运行
 		'DAMAI_ONLY' => 0,
 		// 动视云memcached配置
-		/*'DATA_CACHE_TYPE' => 'Gloudmemcached',
+		'DATA_CACHE_TYPE' => 'Gloudmemcached',
 		'MEMCACHED_OCS' => true,
 		'MEMCACHED_HOST' => 'e609c47b3e4e11e4.m.cnhzalicm10pub001.ocs.aliyuncs.com',
 		'MEMCACHED_USER' => 'e609c47b3e4e11e4',
 		'MEMCACHED_PWD' => 'a021_18dd',
-		'DATA_CACHE_TIME' => 1000,*/
-		
-		'DATA_CACHE_TYPE'=>'Memcache',
-		
+		'DATA_CACHE_TIME' => 1000,
+
 		// 动视云redis配置
 		'REDIS_DATA_CACHE_TYPE' => 'Redis',
 		'REDIS_HOST'=>'2fe4ef45c89f11e4.m.cnhza.kvstore.aliyuncs.com',

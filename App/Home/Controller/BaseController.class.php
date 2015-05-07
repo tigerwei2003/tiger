@@ -203,7 +203,7 @@ class BaseController extends Controller {
 		$condition = array();
 		$condition['id'] = $account_id;
 		$condition['status'] = 1;
-		$db_account = $model->lock(true)->table('july_account')->field('gift_coin_num, bean, gold, used_coin_num, used_bean_num, used_gold_num exp, level')->where($condition)->find();
+		$db_account = $model->lock(true)->table('july_account')->field('gift_coin_num, bean, gold, used_coin_num, used_bean_num, used_gold_num, exp, level')->where($condition)->find();
 		if ($db_account === false)
 			return $this->return_ex(-600, "找不到该账户：".$account_id);
 		

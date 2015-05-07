@@ -35,7 +35,7 @@ class Dispatcher {
         }
 
         // 开启子域名部署
-        if(C('APP_SUB_DOMAIN_DEPLOY')) {  
+        if(C('APP_SUB_DOMAIN_DEPLOY')) {
             $rules      = C('APP_SUB_DOMAIN_RULES');
             if(isset($rules[$_SERVER['HTTP_HOST']])) { // 完整域名或者IP配置
                 define('APP_DOMAIN',$_SERVER['HTTP_HOST']); // 当前完整域名
@@ -138,7 +138,7 @@ class Dispatcher {
 
         // 获取模块名称
         define('MODULE_NAME', defined('BIND_MODULE')? BIND_MODULE : self::getModule($varModule));
-      
+        
         // 检测模块是否存在
         if( MODULE_NAME && (defined('BIND_MODULE') || !in_array_case(MODULE_NAME,C('MODULE_DENY_LIST')) ) && is_dir(APP_PATH.MODULE_NAME)){
             // 定义当前模块路径

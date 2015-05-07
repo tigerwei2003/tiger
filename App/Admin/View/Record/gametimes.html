@@ -43,6 +43,16 @@
 										onBlur="blur_input(this,'GSIP')"
 										onClick="click_input(this,'GSIP')"></td>
 									<td style="padding-right: 0"><input type="text"
+										name="region_id"
+										value="<php> if($region_id){ echo $region_id;}else{ echo '区域ID';} </php>"
+										onBlur="blur_input(this,'区域ID')"
+										onClick="click_input(this,'区域ID')"></td>
+									<td style="padding-right: 0"><input type="text"
+										name="gsd_id"
+										value="<php> if($gsd_id){ echo $gsd_id;}else{ echo 'GSDID';} </php>"
+										onBlur="blur_input(this,'GSDID')"
+										onClick="click_input(this,'GSDID')"></td>
+									<td style="padding-right: 0"><input type="text"
 										name="gs_id"
 										value="<php> if($gs_id){ echo $gs_id;}else{ echo 'GSID';} </php>"
 										onBlur="blur_input(this,'GSID')"

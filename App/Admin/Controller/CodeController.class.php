@@ -214,7 +214,7 @@ class codeController extends BaseController
 	}
 
 	/*兑换券记录*/
-	public function exchange(){ 
+	public function exchange(){
 		//渠道
 		$this->dealerlist = M('dealer')->where('`id`>=10')->order('id DESC')->select();
 		//计费点

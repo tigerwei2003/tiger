@@ -68,7 +68,7 @@ class BaseController extends Controller
 		$public_controller->header();
 		$controller_name=CONTROLLER_NAME;
 		$action_name=ACTION_NAME;
-		$node_info=$this->get_menu_info($controller_name, $action_name); 
+		$node_info=$this->get_menu_info($controller_name, $action_name);
 		$this->node_info_header=$node_info;
 	   
 		

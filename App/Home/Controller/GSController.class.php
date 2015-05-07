@@ -416,6 +416,10 @@ class GSController extends BaseController {
 			$db_link = $db->where($condition)->save($update);
 			if (!$db_link)
 				return $this->respond(-110, "fail to update account.");
+			
+			// 清除帐号信息缓存
+			$account_model=D("Account");
+			$account_model->clear_cache($accountid);
 		}
 
 		return $this->respond(0, "success");

@@ -19,7 +19,7 @@ class App {
      * @access public
      * @return void
      */
-    static public function init() { 
+    static public function init() {
         // 加载动态应用公共文件和配置
         load_ext_file(COMMON_PATH);
 
@@ -59,7 +59,7 @@ class App {
      * @access public
      * @return void
      */
-    static public function exec() { 
+    static public function exec() {
     
         if(!preg_match('/^[A-Za-z](\/|\w)*$/',CONTROLLER_NAME)){ // 安全检测
             $module  =  false;
