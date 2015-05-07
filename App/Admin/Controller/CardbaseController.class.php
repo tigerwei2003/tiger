@@ -8,6 +8,7 @@ defined('THINK_PATH') or exit;
  */
 abstract class CardbaseController extends BaseController {
 	
+	//
 	const INSERT    = 'Insert';
 	const UPDATE    = 'Update';
 	const GET_LIST  = 'GetList';
